@@ -6,17 +6,16 @@ import ClaimsCard from '../components/ClaimsCard.astro';
 import Icon from '../components/Icon.astro';
 import { site } from '../data/site.js';
 import { business, webPage, breadcrumbs } from '../lib/schema.js';
-const meta = { path: '/contact', title: 'Contact Collingwood Handyman | Free Estimates', description: 'Call Keith Diver at 705-795-4009 or send your project details for a free estimate. Collingwood Handyman, 4-115 First St, Collingwood. Mon to Sat, 8am to 6pm.' };
+const meta = { path: '/contact', title: 'Contact Collingwood Handyman | Request a Quote', description: 'Call 705-795-4009 or send your project details to request a quote for handyman work in Collingwood and nearby towns. A local service provider will reply.' };
 const crumbs = [{ name: 'Home', href: '/' }, { name: 'Contact', href: '/contact' }];
 const rows = [
   { icon: 'phone', label: 'Phone', value: site.phone, href: `tel:${site.phoneHref}` },
   { icon: 'mail', label: 'Email', value: site.email, href: `mailto:${site.email}` },
-  { icon: 'map-pin', label: 'Address', value: `${site.address.street}, ${site.address.city} ${site.address.region} ${site.address.postal}` },
-  { icon: 'clock', label: 'Hours', value: site.hours },
+  { icon: 'map-pin', label: 'Service area', value: 'Collingwood and nearby towns' },
 ];
 ---
 <Layout {...meta} schemas={[business(), webPage(meta), breadcrumbs(crumbs)]}>
-  <PageHead crumbs={crumbs} eyebrow="Contact" title="Let’s talk about your&nbsp;project." sub="Call Keith, or send the details below for a free, no-obligation estimate. Photos and measurements help." />
+  <PageHead crumbs={crumbs} eyebrow="Contact" title="Let’s talk about your&nbsp;project." sub="Call, or send the details below to request a quote. Photos and measurements help." />
   <section class="section">
     <div class="wrap ct">
       <ul class="ct__list">
@@ -27,7 +26,7 @@ const rows = [
       <div class="ct__card"><ClaimsCard /></div>
     </div>
   </section>
-  <QuoteBand heading="Send your project details." sub="Keith reviews every request and replies to arrange the next step." />
+  <QuoteBand heading="Send your project details." sub="A local service provider reviews each request and contacts you about the next step." />
 </Layout>
 <style>
   .ct { display: grid; grid-template-columns: 1.2fr 1fr; gap: 3rem; align-items: start; }

@@ -20,7 +20,7 @@ const groupIcon = Object.fromEntries(serviceGroups.flatMap((g) => g.services.map
 const popular = a.popular.map((slug) => ({ slug, s: serviceBySlug[slug] })).filter((p) => p.s);
 ---
 <Layout {...meta} schemas={[business(), webPage(meta), breadcrumbs(crumbs), faqPage(a.faqs)]}>
-  <Hero crumbs={crumbs} eyebrow={a.eyebrow} title={a.h1} sub={a.sub} panel={{ icon: 'map-pin', heading: `Why ${a.name.split(' (')[0]} homeowners call Keith` }} />
+  <Hero crumbs={crumbs} eyebrow={a.eyebrow} title={a.h1} sub={a.sub} panel={{ icon: 'map-pin', heading: `Requests in ${a.name.split(' (')[0]}` }} />
   <TrustStrip />
 
   <section class="section intro">
@@ -55,7 +55,7 @@ const popular = a.popular.map((slug) => ({ slug, s: serviceBySlug[slug] })).filt
   {a.nearby?.length > 0 && (
     <section class="section nearby">
       <div class="wrap nearby__in">
-        <h2>Also serving nearby</h2>
+        <h2>Nearby towns</h2>
         <ul>{a.nearby.filter((n) => areaBySlug[n]).map((n) => <li><a href={`/service-areas/${n}`}>{areaBySlug[n].name}</a></li>)}</ul>
       </div>
     </section>

@@ -1,48 +1,51 @@
 ---
-// About Keith. Facts from the live About page (read 2026-11-26) and the claims Keith confirmed.
-// No photo of Keith yet: the panel shows the confirmed claims until a real photo arrives.
+// About this website. Rank-and-rent enquiry brand (Chris, 2026-11-26): no owner, credentials or reviews.
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import TrustStrip from '../components/TrustStrip.astro';
-import QuoteCard from '../components/QuoteCard.astro';
 import TownsBand from '../components/TownsBand.astro';
 import QuoteBand from '../components/QuoteBand.astro';
 import Icon from '../components/Icon.astro';
-import { site, serviceGroups } from '../data/site.js';
+import { serviceGroups } from '../data/site.js';
 import { business, webPage, breadcrumbs } from '../lib/schema.js';
 
-const meta = { path: '/about', title: 'About Keith Diver | Collingwood Handyman', description: 'Meet Keith Diver, owner of Collingwood Handyman. 30+ years in the trades, licensed and insured, working on homes and cottages around Collingwood.' };
-const crumbs = [{ name: 'Home', href: '/' }, { name: 'About Keith', href: '/about' }];
+const meta = { path: '/about', title: 'About This Website | Collingwood Handyman', description: 'How Collingwood Handyman works: describe the job, share your town and a local service provider reviews your request for homes and cottages near Collingwood.' };
+const crumbs = [{ name: 'Home', href: '/' }, { name: 'How it works', href: '/about' }];
 const values = [
-  { icon: 'clock', title: 'Reliability', body: 'Keith shows up when he says he will, and keeps you posted if anything changes.' },
-  { icon: 'ruler', title: 'Careful work', body: 'Thirty years in the trades means the job is planned properly and finished cleanly.' },
-  { icon: 'file-text', title: 'Clear estimates', body: 'You see the scope and the price before work starts, with no hidden fees.' },
-  { icon: 'house', title: 'Local roots', body: 'Keith knows how Georgian Bay weather treats homes, decks and cottages.' },
+  { icon: 'file-text', title: 'Describe the job', body: 'Say what needs doing, the rough size of the job and any timing needs.' },
+  { icon: 'map-pin', title: 'Share your town', body: 'Your town or postcode lets the service provider confirm coverage for your address.' },
+  { icon: 'camera', title: 'Add photos', body: 'Photos close up and from a distance help the service provider understand the scope.' },
+  { icon: 'phone', title: 'Talk it through', body: 'The service provider contacts you to discuss scope, a quote and next steps.' },
 ];
-const person = {
-  '@context': 'https://schema.org', '@type': 'Person', name: site.owner, jobTitle: 'Owner',
-  worksFor: { '@id': `${site.url}/#business` }, url: `${site.url}/about`,
-};
+const aboutPage = { ...webPage(meta), '@type': 'AboutPage' };
 ---
-<Layout {...meta} schemas={[business(), webPage(meta), breadcrumbs(crumbs), person]}>
-  <Hero crumbs={crumbs} eyebrow="About Keith Diver" title="Your local handyman, with 30+ years in the&nbsp;trades." sub="Keith Diver owns Collingwood Handyman and does the work himself, on homes and cottages around Collingwood and the southern Georgian Bay." panel={{ icon: 'hammer', heading: 'What you can count on' }} />
+<Layout {...meta} schemas={[business(), aboutPage, breadcrumbs(crumbs)]}>
+  <Hero crumbs={crumbs} eyebrow="About this website" title="A simple way to request handyman&nbsp;work." sub="Collingwood Handyman is an enquiry website for homes, cottages and rentals around Collingwood and the southern Georgian Bay." panel={{ icon: 'hammer', heading: 'How a request works' }} />
   <TrustStrip />
 
   <section class="section story">
     <div class="wrap story__in">
       <div>
-        <h2>A lifetime in the trades.</h2>
-        <p>Keith started in the trades more than 30 years ago, here in the Collingwood area. He learned from local tradespeople who took pride in their work, and he has worked on homes, cottages and seasonal properties across Simcoe County ever since.</p>
-        <p>Over those years he has handled almost every kind of home repair and improvement, from a sticking door to a full bathroom renovation. Small jobs get the same care as big ones.</p>
-        <p>Living locally, Keith understands what lake humidity, freeze-thaw winters and heavy snow do to decks, siding, windows and plumbing. That knowledge shapes how he plans each job.</p>
+        <h2>How this website works.</h2>
+        <p>Collingwood Handyman connects requests for handyman work in Collingwood and nearby towns with a local service provider who reviews each request.</p>
+        <p>You describe the work, add your location and send the form or call. The service provider reviews the details, confirms coverage for your address and contacts you to discuss scope and next steps.</p>
+        <p>The service pages explain common jobs, what affects scope and which details help. They are a guide to writing a clear request, not a promise of price or timing.</p>
       </div>
-      <div class="story__quote"><QuoteCard /></div>
+      <div class="story__quote">
+        <h3>Good to know</h3>
+        <ul class="story__list">
+          <li><Icon name="check" size={20} stroke={2.5} />Requests are reviewed by a local service provider.</li>
+          <li><Icon name="check" size={20} stroke={2.5} />Coverage is confirmed for your address when you send your request.</li>
+          <li><Icon name="check" size={20} stroke={2.5} />Ask the service provider about insurance, warranty and terms before work starts.</li>
+          <li><Icon name="check" size={20} stroke={2.5} />No reviews are shown until verified ones are available.</li>
+        </ul>
+      </div>
     </div>
   </section>
 
   <section class="section section--cream vals" aria-labelledby="vals-h">
     <div class="wrap">
-      <h2 id="vals-h" class="center">What guides every job</h2>
+      <h2 id="vals-h" class="center">What makes a clear request</h2>
       <ul class="vals__grid">
         {values.map((v) => <li><Icon name={v.icon} size={36} stroke={1.5} /><h3>{v.title}</h3><p>{v.body}</p></li>)}
       </ul>
@@ -51,16 +54,16 @@ const person = {
 
   <section class="section exp" aria-labelledby="exp-h">
     <div class="wrap">
-      <h2 id="exp-h">What Keith works on</h2>
+      <h2 id="exp-h">What you can request</h2>
       <ul class="exp__grid">
         {serviceGroups.map((g) => <li><a href={`/services#${g.id}`}><Icon name={g.icon} size={28} stroke={1.5} /><span><strong>{g.title}</strong><span>{g.blurb}</span></span></a></li>)}
       </ul>
-      <p class="muted exp__note">Work that needs a licensed electrician, plumber or gas technician is identified in the estimate and coordinated with a licensed trade.</p>
+      <p class="muted exp__note">In Ontario some electrical, plumbing and gas work must be done by a licensed contractor. The service provider can confirm what applies to your job.</p>
     </div>
   </section>
 
   <TownsBand heading="Here for your home. And your place away from&nbsp;home." />
-  <QuoteBand heading="Let’s talk about your project." sub="Tell Keith what needs doing. You’ll get a free, no-obligation estimate." />
+  <QuoteBand heading="Tell us what needs doing." sub="Share the job and your location so a local service provider can review your request." />
 </Layout>
 
 <style>
@@ -85,4 +88,8 @@ const person = {
   @media (max-width: 960px) { .vals__grid, .exp__grid { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 860px) { .story__in { grid-template-columns: 1fr; gap: 2rem; } }
   @media (max-width: 560px) { .vals__grid, .exp__grid { grid-template-columns: 1fr; } }
+  .story__quote h3 { font-size: 1.3rem; margin-bottom: 1rem; }
+  .story__list { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.7rem; font-weight: 700; }
+  .story__list li { display: flex; gap: 0.6rem; align-items: flex-start; }
+  .story__list :global(.icon) { flex: none; color: var(--teal); margin-top: 0.1rem; }
 </style>

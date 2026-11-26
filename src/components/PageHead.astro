@@ -16,7 +16,7 @@ const { crumbs = null, eyebrow, title, sub = null, actions = true } = Astro.prop
     {sub && <p class="lede">{sub}</p>}
     {actions && (
       <div class="ph__ctas">
-        <a class="btn btn--quote" href="#quote">Request a Free Estimate</a>
+        <a class="btn btn--quote" href="#quote">Request a Quote</a>
         <a class="btn btn--outline" href={`tel:${site.phoneHref}`}><Icon name="phone" size={18} stroke={2.25} />{site.phone}</a>
       </div>
     )}

@@ -1,9 +1,8 @@
 ---
-// White strip under the hero: owner name and the claims Keith confirmed (site.claims).
-import { site } from '../data/site.js';
-const items = [`${site.owner}, owner`, site.claims.years, site.claims.licensed, 'Free estimates'];
+// White strip under the hero: plain facts about the enquiry service. No credentials or claims.
+const items = ['Homes, cottages & rentals', 'Collingwood & nearby towns', 'Call or send the details', 'Free to send a request'];
 ---
-<section class="trust" aria-label="Why homeowners call Keith">
+<section class="trust" aria-label="About this service">
   <ul class="wrap trust__in">{items.map((t) => <li>{t}</li>)}</ul>
 </section>
 

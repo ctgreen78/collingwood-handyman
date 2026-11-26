@@ -2,6 +2,6 @@
 // /blog/author exists on the live site. Kept as a noindex list that points to About.
 import ArticleHub from '../../components/ArticleHub.astro';
 import { allArticles } from '../../data/content.js';
-const meta = { path: '/blog/author', title: 'Keith Diver | Collingwood Handyman', description: 'Articles by Keith Diver, owner of Collingwood Handyman.' };
+const meta = { path: '/blog/author', title: 'All Articles | Collingwood Handyman', description: 'Every article on Collingwood Handyman about home repairs, renovations, rentals and cottage care in Collingwood and Simcoe County.' };
 ---
-<ArticleHub meta={meta} indexing="noindex,follow" eyebrow="Author" title="Articles by Keith&nbsp;Diver" sub="Owner of Collingwood Handyman, with 30+ years in the trades." list={allArticles} more='<a href="/about">More about Keith</a>' />
+<ArticleHub meta={meta} indexing="noindex,follow" eyebrow="Articles" title="All&nbsp;articles" sub="Guides and answers for homes and cottages around Collingwood." list={allArticles} more='<a href="/about">How this website works</a>' />

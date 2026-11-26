@@ -5,7 +5,6 @@ import Layout from '../layouts/Layout.astro';
 import Hero from './Hero.astro';
 import TrustStrip from './TrustStrip.astro';
 import Steps from './Steps.astro';
-import QuoteCard from './QuoteCard.astro';
 import Faq from './Faq.astro';
 import TownsBand from './TownsBand.astro';
 import QuoteBand from './QuoteBand.astro';
@@ -25,7 +24,7 @@ const crumbs = [
 // Hero: a real job photo named in the content, else the page's AI scene (no people).
 const hero = s.image ? photos[s.image] : serviceImage(s.slug);
 const cardIcon = s.cards?.[0]?.icon ?? 'wrench';
-// Process photo is optional. Without one, the steps sit beside the customer quote.
+// Process photo is optional. Without one, the steps sit beside the request card.
 const proc = s.processImage ? photos[s.processImage] : null;
 ---
 <Layout {...meta} schemas={[business(), webPage(meta), breadcrumbs(crumbs), serviceSchema({ name: s.name, path, description: s.seoDescription }), faqPage(s.faqs)]}>
@@ -64,7 +63,7 @@ const proc = s.processImage ? photos[s.processImage] : null;
         <Steps steps={s.steps} vertical />
       </div>
       <div class="proc__quote">
-        {s.quote ? <QuoteCard text={s.quote.text} name={s.quote.name} context={s.quote.context} /> : <ClaimsCard />}
+        <ClaimsCard />
       </div>
     </div>
   </section>

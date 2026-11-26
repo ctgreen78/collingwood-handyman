@@ -1,9 +1,9 @@
 ---
-// "Why call Keith" card: the owner line and the claims Keith confirmed (site.claims).
+// "How a request works" card: the enquiry steps and the phone. No credentials or claims.
 import Icon from './Icon.astro';
 import { site } from '../data/site.js';
-const { heading = 'Why homeowners call Keith' } = Astro.props;
-const items = [`Owner ${site.owner} does the work`, site.claims.years, site.claims.licensed, site.claims.warranty, site.claims.guarantee, 'Free estimates'];
+const { heading = 'How a request works' } = Astro.props;
+const items = ['Describe the job and your town', 'Add photos if you have them', 'A local service provider reviews it', 'Talk through scope and a quote'];
 ---
 <div class="cc">
   <h3 class="cc__h">{heading}</h3>

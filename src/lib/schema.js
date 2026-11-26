@@ -1,15 +1,15 @@
-// Structured data for a real local business (Collingwood Handyman, owner Keith Diver).
-// HomeAndConstructionBusiness with the address and hours published on the live site.
-// No AggregateRating or Review markup until Keith confirms the reviews.
+// Organization + WebSite for the enquiry brand (rank-and-rent). No LocalBusiness, address,
+// opening hours, founder, AggregateRating or named provider until the real operator's facts are approved.
+// Services use `broker` (the brand arranges the request) rather than `provider`.
 import { site, areas } from '../data/site.js';
 
-const ORG_ID = `${site.url}/#business`;
+const ORG_ID = `${site.url}/#organization`;
 const SITE_ID = `${site.url}/#website`;
 
 export function business() {
   return {
     '@context': 'https://schema.org',
-    '@type': 'HomeAndConstructionBusiness',
+    '@type': 'Organization',
     '@id': ORG_ID,
     name: site.name,
     url: `${site.url}/`,
@@ -17,20 +17,6 @@ export function business() {
     image: `${site.url}${site.ogImage}`,
     telephone: site.phoneHref,
     email: site.email,
-    founder: { '@type': 'Person', name: site.owner },
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: site.address.street,
-      addressLocality: site.address.city,
-      addressRegion: site.address.region,
-      postalCode: site.address.postal,
-      addressCountry: 'CA',
-    },
-    openingHoursSpecification: [{
-      '@type': 'OpeningHoursSpecification',
-      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-      opens: '08:00', closes: '18:00',
-    }],
     areaServed: areas.map(([name]) => ({ '@type': 'City', name: `${name}, ON` })),
   };
 }
@@ -68,7 +54,7 @@ export function service({ name, path, description, area = 'Collingwood' }) {
     url: `${site.url}${path}`,
     description,
     areaServed: areas.map(([n]) => ({ '@type': 'City', name: `${n}, ON` })),
-    provider: { '@id': ORG_ID },
+    broker: { '@id': ORG_ID },
   };
 }
 
@@ -91,7 +77,7 @@ export function article({ a, path }) {
     mainEntityOfPage: `${site.url}${path}`,
     datePublished: a.datePublished || undefined,
     dateModified: a.dateModified || a.datePublished || undefined,
-    author: { '@type': 'Person', name: site.owner, url: `${site.url}/about` },
+    author: { '@id': ORG_ID },
     publisher: { '@id': ORG_ID },
   };
 }

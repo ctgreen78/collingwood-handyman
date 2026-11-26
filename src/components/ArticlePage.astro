@@ -30,7 +30,7 @@ const related = allArticles.filter((x) => x.slug !== a.slug)
         <ol><li><a href="/">Home</a></li><li><a href={hub.href}>{hub.name}</a></li></ol>
       </nav>
       <h1>{a.title}</h1>
-      <p class="ah__meta">By <a href="/about">{site.owner}</a>{nice && <> · <time datetime={date}>{nice}</time></>}</p>
+      <p class="ah__meta">By <a href="/about">{site.name}</a>{nice && <> · <time datetime={date}>{nice}</time></>}</p>
       {a.lede && <p class="lede">{a.lede}</p>}
     </div>
   </section>
@@ -40,7 +40,7 @@ const related = allArticles.filter((x) => x.slug !== a.slug)
     <aside class="art__side">
       <div class="art__card">
         <ClaimsCard heading="Need a hand with this?" />
-        <a class="btn btn--quote art__btn" href="#quote">Request a Free Estimate</a>
+        <a class="btn btn--quote art__btn" href="#quote">Request a Quote</a>
       </div>
     </aside>
   </div>
@@ -58,7 +58,7 @@ const related = allArticles.filter((x) => x.slug !== a.slug)
     </section>
   )}
 
-  <QuoteBand heading="Let’s talk about your project." sub="Tell Keith what needs doing. You’ll get a free estimate." />
+  <QuoteBand heading="Let’s talk about your project." sub="Describe what needs doing and where. A local service provider will review your request." />
 </Layout>
 
 <style>

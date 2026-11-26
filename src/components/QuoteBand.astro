@@ -58,11 +58,11 @@ const { heading, sub, service = null, detailsLabel = 'What needs doing?' } = Ast
         <div class="qf__field qf__full">
           <label for="qf-details">{service ? 'Project details' : detailsLabel}</label>
           <textarea id="qf-details" name="details" rows="3" required></textarea>
-          <p class="qf__err" id="qf-details-err" hidden>Tell Keith a little about the job.</p>
+          <p class="qf__err" id="qf-details-err" hidden>Tell us a little about the job.</p>
         </div>
       </div>
       {site.turnstileSiteKey && <div class="cf-turnstile qf__ts" data-sitekey={site.turnstileSiteKey} data-size="flexible"></div>}
-      <button class="btn btn--quote qf__submit" type="submit">Request a Free Estimate</button>
+      <button class="btn btn--quote qf__submit" type="submit">Request a Quote</button>
       <p class="qf__note">{site.formDisclosure} <a href="/privacy-policy">Privacy policy</a></p>
       <p class="qf__status" role="status" aria-live="polite" hidden></p>
     </form>
@@ -108,7 +108,7 @@ const { heading, sub, service = null, detailsLabel = 'What needs doing?' } = Ast
         const data = await r.json().catch(() => ({}));
         if (r.ok && data.ok) {
           form.reset();
-          say('Thanks. Your request was sent. Keith will review it and get back to you.', 'ok');
+          say('Thanks. Your request was sent. A local service provider will review it and contact you.', 'ok');
         } else if (data.error === 'invalid') {
           say('Some details need checking. Please review the highlighted fields.', 'error');
           fields.forEach(check);
@@ -121,7 +121,7 @@ const { heading, sub, service = null, detailsLabel = 'What needs doing?' } = Ast
         say(`Your request could not be sent. Please check your connection or call ${phone}.`, 'error');
       } finally {
         button.disabled = false;
-        button.textContent = 'Request a Free Estimate';
+        button.textContent = 'Request a Quote';
         (window as any).turnstile?.reset?.();
       }
     });

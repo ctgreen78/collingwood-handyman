@@ -6,24 +6,24 @@ import PageHead from '../components/PageHead.astro';
 import Faq from '../components/Faq.astro';
 import QuoteBand from '../components/QuoteBand.astro';
 import { business, webPage, breadcrumbs, faqPage } from '../lib/schema.js';
-const meta = { path: '/faqs', title: 'FAQs | Collingwood Handyman', description: 'Answers about Collingwood Handyman: services, service areas, estimates, same-day service, warranty, insurance and materials. Call Keith at 705-795-4009.' };
+const meta = { path: '/faqs', title: 'FAQs | Collingwood Handyman', description: 'Answers about Collingwood Handyman: how requests work, services, service areas, quotes, licensed trades and materials. Call 705-795-4009 with a question.' };
 const crumbs = [{ name: 'Home', href: '/' }, { name: 'FAQs', href: '/faqs' }];
 const faqs = [
-  { q: 'What handyman services do you offer?', a: 'Keith handles home repairs, bathroom and kitchen updates, basements, flooring, tile, drywall, carpentry, painting, decks, fences, pressure washing, property maintenance and cottage opening, closing and upkeep. The services page lists every one.' },
-  { q: 'What areas do you serve?', a: 'Keith is based in Collingwood and works in Wasaga Beach, Stayner, Elmvale, Barrie, Innisfil, Orillia, New Tecumseth and Oro-Medonte, plus nearby cottage country. If you are unsure about your address, call and ask.' },
-  { q: 'How is the price of a job worked out?', a: 'Every job starts with a free estimate based on the work, the materials and the condition of the space. You see the scope and price before anything starts, with no hidden fees.' },
-  { q: 'How do I book a visit?', a: 'Call 705-795-4009 between 8am and 6pm, Monday to Saturday, or send the quote form with a short description and photos. Keith replies to arrange the next step.' },
-  { q: 'Do you offer same-day service?', a: 'Same-day service is available for some jobs, depending on the schedule and the work involved. Call to check what is possible for your job.' },
-  { q: 'Is your work guaranteed?', a: 'Yes. Keith backs his work with a workmanship warranty and a 100% satisfaction guarantee. If something is not right, he will make it right.' },
-  { q: 'Are you licensed and insured?', a: 'Yes. Collingwood Handyman is licensed and insured. Work that needs a licensed electrician, plumber or gas technician is identified in the estimate and coordinated with a licensed trade.' },
-  { q: 'Do I supply the materials, or do you?', a: 'Either works. Keith can supply materials, or you can buy your own finishes such as tile, fixtures or paint. The estimate shows which way the job is planned.' },
+  { q: 'What handyman services can I request?', a: 'You can request home repairs, bathroom and kitchen updates, basements, flooring, tile, drywall, carpentry, painting, decks, fences, pressure washing, property maintenance and cottage opening, closing and upkeep. The services page lists every one.' },
+  { q: 'What areas does this website cover?', a: 'Requests are taken for Collingwood, Wasaga Beach, Stayner, Elmvale, Barrie, Innisfil, Orillia, New Tecumseth and Oro-Medonte, plus nearby cottage country. A service provider confirms coverage for your address when you send your request.' },
+  { q: 'How is the price of a job worked out?', a: 'Each job is quoted on its own scope, materials and the condition of the space. Send clear details and photos so the service provider can discuss the scope and a quote with you.' },
+  { q: 'How do I send a request?', a: 'Call 705-795-4009 or send the quote form with a short description, your town or postcode and photos. A local service provider reviews the request and contacts you about next steps.' },
+  { q: 'How soon can work start?', a: 'Timing depends on the job and the service provider schedule. Say in your request if the work is urgent or tied to a date, such as a cottage opening.' },
+  { q: 'Who does the work?', a: 'Collingwood Handyman is an enquiry website. It passes your request to a local service provider, who reviews it and contacts you. Ask the service provider about their insurance, warranty and terms before work starts.' },
+  { q: 'What about electrical, plumbing or gas work?', a: 'In Ontario some electrical, plumbing and gas work must be done by a licensed contractor. Mention these items in your request and the service provider can confirm what applies.' },
+  { q: 'Who supplies the materials?', a: 'It depends on the job. Some homeowners buy their own finishes such as tile, fixtures or paint. Say what you plan in your request and agree it with the service provider before work starts.' },
   { q: 'Should I hire a pro or do it myself?', a: 'Small cosmetic jobs are often fine to do yourself. Anything involving water, structure, height, or electrical and gas work is worth a professional look, because mistakes there cost more to fix later.' },
 ];
 ---
 <Layout {...meta} schemas={[business(), webPage(meta), breadcrumbs(crumbs), faqPage(faqs)]}>
-  <PageHead crumbs={crumbs} eyebrow="FAQs" title="Frequently asked&nbsp;questions." sub="Quick answers about services, areas, estimates and how Keith works." actions={false} />
+  <PageHead crumbs={crumbs} eyebrow="FAQs" title="Frequently asked&nbsp;questions." sub="Quick answers about how requests work, services, areas and quotes." actions={false} />
   <div class="fq"><Faq title="Common questions" faqs={faqs} openFirst={false} /></div>
-  <QuoteBand heading="Still have a question?" sub="Call Keith or send a message. You’ll get a straight answer." />
+  <QuoteBand heading="Still have a question?" sub="Call or send a message with your question and the details of the job." />
 </Layout>
 <style>
   .fq :global(.faq__in) { max-width: 52rem; }

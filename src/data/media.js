@@ -2,7 +2,7 @@
 // Images.
 // photos/: real job photos from the current collingwoodhandyman.ca site (2026-11-25).
 // services/ and categories/: AI scenes Chris makes in ChatGPT later, named by page slug, no people.
-// Never show an AI image of a person as Keith.
+// Never show an AI image of a person presented as the service provider.
 // ============================================================
 
 import shower from '../assets/photos/bathroom-walk-in-shower.jpg';

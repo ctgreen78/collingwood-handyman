@@ -1,27 +1,31 @@
 ---
-// Reviews: noindex holding page. Only Mike's quote is published until Keith confirms the other
-// reviews on the live site are real (Chris, 2026-11-25). Then add them here and drop the noindex.
+// Reviews: noindex holding page. Rank-and-rent enquiry brand: no reviews until verified ones
+// from the real service provider are available (Chris, 2026-11-26). Then add them and drop the noindex.
 import Layout from '../layouts/Layout.astro';
 import PageHead from '../components/PageHead.astro';
-import QuoteCard from '../components/QuoteCard.astro';
 import ClaimsCard from '../components/ClaimsCard.astro';
 import QuoteBand from '../components/QuoteBand.astro';
-const meta = { path: '/reviews', title: 'Customer Reviews | Collingwood Handyman', description: 'What customers say about Collingwood Handyman and Keith Diver.' };
+const meta = { path: '/reviews', title: 'Reviews | Collingwood Handyman', description: 'Reviews for Collingwood Handyman will be published here once verified reviews are available.' };
 const crumbs = [{ name: 'Home', href: '/' }, { name: 'Reviews', href: '/reviews' }];
 ---
 <Layout {...meta} indexing="noindex,follow">
-  <PageHead crumbs={crumbs} eyebrow="Customer reviews" title="What customers&nbsp;say." sub="Feedback from people Keith has worked for." />
+  <PageHead crumbs={crumbs} eyebrow="Reviews" title="Reviews are on the&nbsp;way." sub="This website does not publish reviews yet. Verified reviews will be added here when they are available." />
   <section class="section">
     <div class="wrap rv">
-      <div class="rv__q"><QuoteCard link={false} context="Bathroom renovation" /></div>
-      <div class="rv__c"><ClaimsCard heading="Backed by Keith’s promise" /></div>
+      <div class="rv__q">
+        <h2 class="rv__h">Meanwhile, send your request.</h2>
+        <p>Describe the job and your town. A local service provider reviews each request and contacts you about scope and a quote.</p>
+      </div>
+      <div class="rv__c"><ClaimsCard /></div>
     </div>
   </section>
-  <QuoteBand heading="Let’s talk about your project." sub="Tell Keith what needs doing. You’ll get a free estimate." />
+  <QuoteBand heading="Tell us what needs doing." sub="Describe what needs doing and where. A local service provider will review your request." />
 </Layout>
+
 <style>
   .rv { display: grid; grid-template-columns: 1.3fr 1fr; gap: 3rem; align-items: start; }
   .rv__q { padding: 2rem; background: var(--cream); border-radius: var(--radius-lg); }
   .rv__c { padding: 2rem; border: 1px solid var(--line); border-radius: var(--radius-lg); }
   @media (max-width: 860px) { .rv { grid-template-columns: 1fr; gap: 1.5rem; } }
+  .rv__h { font-size: 1.4rem; margin-bottom: 0.75rem; }
 </style>

@@ -1,29 +1,19 @@
 // ============================================================
 // COLLINGWOOD HANDYMAN: shared site settings
-// Real business: Collingwood Handyman, owned by Keith Diver. Copy may say Keith does the work.
-// Trust claims below were confirmed by Keith through Chris on 2026-11-25.
-// Reviews: only Mike's quote is shown until Keith confirms the rest are real customer reviews.
-// No AI image may show a person presented as Keith. Use real job photos or AI scenes without people.
+// Rank-and-rent enquiry brand (Chris, 2026-11-26). Not tied to any named person or business.
+// Do not write as though the site or brand performs the work. A service provider reviews requests.
+// No owner names, reviews, ratings, credentials, prices, response times or street address
+// until the real provider supplies evidence. No AI image may show a person as the provider.
 // ============================================================
 
 export const site = {
   name: 'Collingwood Handyman',
-  owner: 'Keith Diver',
   url: 'https://collingwoodhandyman.ca',
 
   phone: '705-795-4009',
   phoneHref: '+17057954009',
   email: 'info@collingwoodhandyman.ca',
-  address: { street: '4-115 First St', city: 'Collingwood', region: 'ON', postal: 'L9Y 4W3' },
-  hours: 'Monday to Saturday, 8am to 6pm',
-
-  // Confirmed by Keith (2026-11-25). The 4.9/5 rating stays off until the reviews are confirmed.
-  claims: {
-    years: '30+ years experience',
-    licensed: 'Licensed & insured',
-    guarantee: '100% satisfaction guaranteed',
-    warranty: 'Workmanship warranty',
-  },
+  region: 'Collingwood · Southern Georgian Bay',
 
   // Preview mode: every page carries noindex. Set to false only at launch on collingwoodhandyman.ca.
   preview: true,
@@ -31,7 +21,7 @@ export const site = {
   formsLive: false,
   turnstileSiteKey: null,
   showImageCaptions: false,
-  formDisclosure: 'Keith uses your details only to reply to your request.',
+  formDisclosure: 'Your details will be shared with a local service provider to respond to your enquiry.',
 
   // Google Analytics on the current site. Add at launch, not on the test link.
   ga4: 'G-E2FND02JEW',
@@ -42,9 +32,9 @@ export const site = {
 // Primary navigation (mockup A)
 export const nav = [
   { label: 'Services', href: '/services', menu: 'services' },
-  { label: 'About Keith', href: '/about' },
   { label: 'Service Areas', href: '/service-areas', menu: 'areas' },
-  { label: 'Reviews', href: '/reviews' },
+  { label: 'How it works', href: '/about' },
+  { label: 'FAQs', href: '/faqs' },
 ];
 
 // Service groups. Every link is a URL on the live site (sitemap 2026-11-25).
@@ -113,7 +103,7 @@ export const serviceGroups = [
       ['Home maintenance', '/services/home-maintenance'],
       ['Property maintenance', '/services/property-maintenance'],
       ['Property manager maintenance', '/services/property-manager-maintenance'],
-      ['Tenant placement', '/services/tenant-placement'],
+      ['Tenant placement prep', '/services/tenant-placement'],
     ],
   },
 ];

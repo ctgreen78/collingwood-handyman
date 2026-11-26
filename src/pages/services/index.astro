@@ -8,12 +8,12 @@ import Icon from '../../components/Icon.astro';
 import { serviceGroups } from '../../data/site.js';
 import { serviceBySlug } from '../../data/content.js';
 import { business, webPage, breadcrumbs } from '../../lib/schema.js';
-const meta = { path: '/services', title: 'Handyman Services in Collingwood | Collingwood Handyman', description: 'Every service Keith Diver offers in Collingwood and nearby towns: home repairs, bathrooms, kitchens, decks, fences, painting and cottage care. Free estimates.' };
+const meta = { path: '/services', title: 'Handyman Services in Collingwood | Collingwood Handyman', description: 'Request a quote in Collingwood and nearby towns for home repairs, bathrooms, kitchens, decks, fences, painting and cottage care. Call or send the details.' };
 const crumbs = [{ name: 'Home', href: '/' }, { name: 'Services', href: '/services' }];
 const blurb = (href) => serviceBySlug[href.split('/').pop()]?.sub ?? '';
 ---
 <Layout {...meta} schemas={[business(), webPage(meta), breadcrumbs(crumbs)]}>
-  <PageHead crumbs={crumbs} eyebrow="Collingwood & surrounding communities" title="Handyman services for homes and&nbsp;cottages." sub="Repairs, renovations and seasonal care, all done by Keith Diver. Pick a service to see what it covers, or send your list for one free estimate." />
+  <PageHead crumbs={crumbs} eyebrow="Collingwood & surrounding communities" title="Handyman services for homes and&nbsp;cottages." sub="Repairs, renovations and seasonal care, reviewed by a local service provider. Pick a service to see what it covers, or send your list as one request." />
   <TrustStrip />
   {serviceGroups.map((g, i) => (
     <section class:list={['section grp', { 'section--cream': i % 2 === 1 }]} id={g.id} aria-labelledby={`${g.id}-h`}>
@@ -27,8 +27,8 @@ const blurb = (href) => serviceBySlug[href.split('/').pop()]?.sub ?? '';
       </div>
     </section>
   ))}
-  <TownsBand heading="Serving Collingwood, Wasaga Beach, Stayner and nearby communities." towns={false} />
-  <QuoteBand heading="Let’s talk about your project." sub="Tell Keith what needs doing. You’ll get a free estimate." />
+  <TownsBand heading="Requests welcome from Collingwood, Wasaga Beach, Stayner and nearby communities." towns={false} />
+  <QuoteBand heading="Let’s talk about your project." sub="Describe what needs doing and where. A local service provider will review your request." />
 </Layout>
 <style>
   .grp { scroll-margin-top: 5rem; }

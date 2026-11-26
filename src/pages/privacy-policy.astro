@@ -1,11 +1,12 @@
 ---
-// DRAFT privacy information (2026-11-25). Chris to confirm with Keith before launch:
-// operator Collingwood Handyman (Keith Diver), site run by Certtech, details kept 12 months.
+// DRAFT privacy information (2026-11-26), modelled on the Wasaga text Chris approved 2026-11-24:
+// operator Certtech Web Solutions, leads passed to a local service provider, details kept 12 months.
+// Chris to approve before launch. Update the provider line if a named renter takes over.
 import Layout from '../layouts/Layout.astro';
 import { site } from '../data/site.js';
 import { webPage, breadcrumbs, business } from '../lib/schema.js';
 
-const meta = { path: '/privacy-policy', title: 'Privacy Policy | Collingwood Handyman', description: 'How Collingwood Handyman collects, uses and keeps the details you send through this website.' };
+const meta = { path: '/privacy-policy', title: 'Privacy Policy | Collingwood Handyman', description: 'How Collingwood Handyman collects, uses, shares and keeps the details you send through this website when you request a quote for handyman work.' };
 const crumbs = [{ name: 'Home', href: '/' }, { name: 'Privacy', href: '/privacy-policy' }];
 ---
 <Layout {...meta} schemas={[business(), webPage(meta), breadcrumbs(crumbs)]}>
@@ -17,14 +18,14 @@ const crumbs = [{ name: 'Home', href: '/' }, { name: 'Privacy', href: '/privacy-
   </section>
   <section class="section">
     <div class="wrap pp">
-      <h2>Who runs this website</h2>
-      <p>This website belongs to {site.name}, owned by {site.owner}. Certtech Web Solutions builds and manages the website for {site.name}.</p>
+      <h2>Who operates this website</h2>
+      <p>{site.name} is an enquiry website operated by Certtech Web Solutions. It connects requests for handyman work with a local service provider.</p>
       <h2>What is collected</h2>
-      <p>When you send a request or call, {site.name} receives the details you choose to share: your name, phone number, town or postcode, email address if you add one, the service you select and your project details. The page you sent the request from is recorded so the request has context.</p>
-      <h2>How your details are used</h2>
-      <p>Your details are used to reply to your request, discuss the work and prepare an estimate. They are not sold or shared for marketing.</p>
+      <p>When you send a request or call, the details you choose to share are collected: your name, phone number, town or postcode, email address if you add one, the service you select and your project details. The page you sent the request from is recorded so the request has context.</p>
+      <h2>How your details are used and shared</h2>
+      <p>Your details are received by Certtech Web Solutions and shared with a local service provider so they can respond to your enquiry, discuss the work and prepare a quote. Your details are not sold.</p>
       <h2>How long details are kept</h2>
-      <p>Enquiry details are kept for 12 months and then deleted, unless a longer period is needed for an active job or by law.</p>
+      <p>Enquiry details are kept for 12 months and then deleted, unless a longer period is required for an active job or by law.</p>
       <h2>Your choices</h2>
       <p>You can ask to see, correct or delete the details you sent. Email <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
     </div>

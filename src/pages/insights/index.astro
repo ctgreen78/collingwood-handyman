@@ -1,7 +1,7 @@
 ---
 import ArticleHub from '../../components/ArticleHub.astro';
 import { insights } from '../../data/content.js';
-const meta = { path: '/insights', title: 'Home Maintenance Insights | Collingwood Handyman', description: 'Seasonal checklists and maintenance guides for Georgian Bay homes and cottages: decks, pipes, painting, dryer vents and more, from Keith Diver.' };
+const meta = { path: '/insights', title: 'Home Maintenance Insights | Collingwood Handyman', description: 'Seasonal checklists and maintenance guides for Georgian Bay homes and cottages: decks, pipes, painting, dryer vents and more.' };
 const crumbs = [{ name: 'Home', href: '/' }, { name: 'Insights', href: '/insights' }];
 ---
 <ArticleHub meta={meta} crumbs={crumbs} eyebrow="Insights" title="Seasonal care for Georgian Bay homes and&nbsp;cottages." sub="Checklists and maintenance guides for the jobs that come round every year." list={insights} more='More answers in the <a href="/blog">blog</a>.' />
