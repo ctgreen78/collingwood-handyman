@@ -7,7 +7,8 @@ import TrustStrip from '../components/TrustStrip.astro';
 import TownsBand from '../components/TownsBand.astro';
 import QuoteBand from '../components/QuoteBand.astro';
 import Icon from '../components/Icon.astro';
-import { photos } from '../data/media.js';
+import { homeHero, serviceImage } from '../data/media.js';
+const howImg = serviceImage('general-repairs');
 import { business, website, webPage } from '../lib/schema.js';
 
 const meta = {
@@ -35,8 +36,8 @@ const steps = [
     title="A helping hand. A home well cared&nbsp;for."
     sub="Request a quote for home repairs, renovations and cottage care. A local service provider reviews every request."
     secondary="services"
-    image={photos.flooring.src}
-    imageAlt={photos.flooring.alt}
+    image={homeHero.src}
+    imageAlt={homeHero.alt}
     focus="center"
   />
 
@@ -67,7 +68,7 @@ const steps = [
   <section class="section how" id="how-it-works" aria-labelledby="how-h">
     <div class="wrap how__in">
       <figure class="how__media">
-        <Image src={photos.shower.src} alt={photos.shower.alt} width={720} height={620} fit="cover" position="center" quality={72} widths={[480, 720]} sizes="(max-width: 860px) 100vw, 45vw" />
+        <Image src={howImg.src} alt={howImg.alt} width={720} height={620} fit="cover" position="center" quality={72} widths={[480, 720]} sizes="(max-width: 860px) 100vw, 45vw" />
       </figure>
       <div class="how__copy">
         <h2 id="how-h" class="how__h">How a request works.</h2>

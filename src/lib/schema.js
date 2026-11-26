@@ -67,7 +67,7 @@ export function faqPage(faqs) {
   };
 }
 
-export function article({ a, path }) {
+export function article({ a, path, image }) {
   return {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
@@ -77,6 +77,7 @@ export function article({ a, path }) {
     mainEntityOfPage: `${site.url}${path}`,
     datePublished: a.datePublished || undefined,
     dateModified: a.dateModified || a.datePublished || undefined,
+    ...(image && { image }),
     author: { '@id': ORG_ID },
     publisher: { '@id': ORG_ID },
   };

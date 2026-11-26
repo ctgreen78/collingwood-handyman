@@ -1,5 +1,6 @@
 ---
 // One template for /blog/<slug> and /insights/<slug> articles (content migrated from the live site).
+import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import Faq from './Faq.astro';
 import ClaimsCard from './ClaimsCard.astro';
@@ -7,10 +8,12 @@ import ArticleCard from './ArticleCard.astro';
 import QuoteBand from './QuoteBand.astro';
 import { site } from '../data/site.js';
 import { allArticles, articleUrl } from '../data/content.js';
+import { articleImage } from '../data/media.js';
 import { business, webPage, breadcrumbs, article as articleSchema, faqPage } from '../lib/schema.js';
 
 const { a } = Astro.props;
 const path = articleUrl(a);
+const img = articleImage(a.slug);
 const hub = a.kind === 'insights' ? { name: 'Insights', href: '/insights' } : { name: 'Blog', href: '/blog' };
 const meta = { path, title: a.seoTitle, description: a.seoDescription };
 const crumbs = [{ name: 'Home', href: '/' }, hub, { name: a.title, href: path }];
@@ -23,7 +26,7 @@ const related = allArticles.filter((x) => x.slug !== a.slug)
   .map((x) => ({ x, n: [...words(x.title)].filter((w) => mine.has(w) && w !== 'collingwood' && w !== 'handyman').length }))
   .sort((p, q) => q.n - p.n).slice(0, 3).map((r) => r.x);
 ---
-<Layout {...meta} schemas={[business(), webPage(meta), breadcrumbs(crumbs), articleSchema({ a, path }), faqPage(a.faqs)]}>
+<Layout {...meta} schemas={[business(), webPage(meta), breadcrumbs(crumbs), articleSchema({ a, path, image: img && `${site.url}${img.src.src}` }), faqPage(a.faqs)]}>
   <section class="ah">
     <div class="wrap ah__in">
       <nav class="crumbs" aria-label="Breadcrumb">
@@ -36,7 +39,14 @@ const related = allArticles.filter((x) => x.slug !== a.slug)
   </section>
 
   <div class="wrap art">
-    <article class="prose" set:html={a.html} />
+    <div class="art__main">
+      {img && (
+        <figure class="art__img">
+          <Image src={img.src} alt={img.alt} width={1104} height={690} fit="cover" quality={68} widths={[560, 830, 1104]} sizes="(max-width: 960px) 100vw, 46rem" loading="eager" />
+        </figure>
+      )}
+      <article class="prose" set:html={a.html} />
+    </div>
     <aside class="art__side">
       <div class="art__card">
         <ClaimsCard heading="Need a hand with this?" />
@@ -72,6 +82,9 @@ const related = allArticles.filter((x) => x.slug !== a.slug)
   .crumbs a { text-decoration: none; }
   .art { display: grid; grid-template-columns: minmax(0, 1fr) 20rem; gap: 3.5rem; align-items: start; padding-block: 2.5rem 3rem; }
   .art__side { position: sticky; top: 6.5rem; }
+  .art__main { min-width: 0; }
+  .art__img { margin: 0 0 2rem; max-width: 46rem; }
+  .art__img img { width: 100%; height: auto; aspect-ratio: 8 / 5; object-fit: cover; border-radius: var(--radius-lg); box-shadow: var(--shadow); }
   .art__card { padding: 1.75rem; background: var(--cream); border-radius: var(--radius-lg); }
   .art__btn { width: 100%; margin-top: 1.25rem; }
   .prose { max-width: 46rem; font-size: 1.05rem; }

@@ -10,7 +10,7 @@ import TownsBand from './TownsBand.astro';
 import QuoteBand from './QuoteBand.astro';
 import Icon from './Icon.astro';
 import ClaimsCard from './ClaimsCard.astro';
-import { photos, serviceImage } from '../data/media.js';
+import { serviceImage } from '../data/media.js';
 import { webPage, breadcrumbs, service as serviceSchema, faqPage, business } from '../lib/schema.js';
 
 const { s } = Astro.props;
@@ -21,11 +21,11 @@ const crumbs = [
   { name: 'Services', href: '/services' },
   { name: s.name.replace(/^./, (c) => c.toUpperCase()), href: path },
 ];
-// Hero: a real job photo named in the content, else the page's AI scene (no people).
-const hero = s.image ? photos[s.image] : serviceImage(s.slug);
+// Hero: the page's illustrative image (same set as Wasaga). Without one, the request panel shows.
+const hero = serviceImage(s.slug);
 const cardIcon = s.cards?.[0]?.icon ?? 'wrench';
 // Process photo is optional. Without one, the steps sit beside the request card.
-const proc = s.processImage ? photos[s.processImage] : null;
+const proc = null;
 ---
 <Layout {...meta} schemas={[business(), webPage(meta), breadcrumbs(crumbs), serviceSchema({ name: s.name, path, description: s.seoDescription }), faqPage(s.faqs)]}>
   <Hero crumbs={crumbs} eyebrow={s.eyebrow} title={s.h1} sub={s.sub} image={hero?.src} imageAlt={hero?.alt} shape="portrait" panel={{ icon: cardIcon }} />
