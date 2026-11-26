@@ -1,0 +1,7 @@
+---
+import ArticleHub from '../../components/ArticleHub.astro';
+import { blogPosts } from '../../data/content.js';
+const meta = { path: '/blog', title: 'Blog | Collingwood Handyman', description: 'Practical answers from Keith Diver on home repairs, renovations, rentals and cottage care in Collingwood and Simcoe County.' };
+const crumbs = [{ name: 'Home', href: '/' }, { name: 'Blog', href: '/blog' }];
+---
+<ArticleHub meta={meta} crumbs={crumbs} eyebrow="The Collingwood Handyman blog" title="Answers for Collingwood homes and&nbsp;cottages." sub="Who to call, what to check and how to plan repairs, renovations and property care around Collingwood." list={blogPosts} more='More seasonal guides in <a href="/insights">Insights</a>.' />

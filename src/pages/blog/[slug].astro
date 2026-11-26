@@ -1,0 +1,7 @@
+---
+import ArticlePage from '../../components/ArticlePage.astro';
+import { blogPosts } from '../../data/content.js';
+export function getStaticPaths() { return blogPosts.map((a) => ({ params: { slug: a.slug }, props: { a } })); }
+const { a } = Astro.props;
+---
+<ArticlePage a={a} />

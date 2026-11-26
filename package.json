@@ -1,0 +1,21 @@
+{
+  "name": "collingwood-handyman",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.6",
+    "@fontsource-variable/manrope": "^5.3.0",
+    "astro": "^7.4.13",
+    "lucide-static": "^1.77.0",
+    "sharp": "^0.35.5"
+  },
+  "devDependencies": {
+    "wrangler": "^4.166.0"
+  }
+}

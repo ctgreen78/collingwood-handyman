@@ -1,0 +1,50 @@
+[
+  {
+    "slug": "bathroom-renovation",
+    "name": "Bathroom renovation",
+    "seoTitle": "Bathroom Renovation in Collingwood | Collingwood Handyman",
+    "seoDescription": "Bathroom renovations in Collingwood, Wasaga Beach and Stayner with Keith Diver. Showers, vanities, tile and accessibility updates. Call 705-795-4009 for a free estimate.",
+    "eyebrow": "Collingwood & surrounding communities",
+    "h1": "Bathroom renovations, with care in every&nbsp;detail.",
+    "sub": "From a practical refresh to a complete bathroom update, start with a conversation about your space.",
+    "image": "shower",
+    "cardsHeading": "Make your bathroom work for you.",
+    "cardsIntro": "Keith renovates bathrooms in homes and cottages across Collingwood, Wasaga Beach, Stayner and nearby towns, from one fixture to a full remodel.",
+    "cards": [
+      { "icon": "shower-head", "title": "Showers & tub updates", "body": "Refresh your shower space, convert a tub to a walk-in shower, or update a tub to better fit your needs and style." },
+      { "icon": "droplets", "title": "Vanities & fixtures", "body": "Replace a vanity, countertop, faucet or toilet to update the look and function of your bathroom." },
+      { "icon": "layout-grid", "title": "Tile & finishing", "body": "Install or replace floor and wall tile over a proper waterproof base for a clean, durable finish." },
+      { "icon": "accessibility", "title": "Accessibility updates", "body": "Make practical improvements to access, such as grab bars, easier shower entry or a comfort-height toilet." }
+    ],
+    "scopeNote": "Project scope and any specialist trade requirements are confirmed before work begins.",
+    "processHeading": "Care from preparation to finishing.",
+    "steps": [
+      { "title": "Tell me about your bathroom", "body": "Share what you’d like to update, your needs and how you use the space." },
+      { "title": "Review your estimate", "body": "Go over a clear estimate for the work, including the scope and any trade requirements." },
+      { "title": "Plan the work", "body": "Confirm the details and next steps so we’re aligned before the project begins." }
+    ],
+    "detailHeading": "What goes into a bathroom that lasts",
+    "detailBody": [
+      "Most bathroom problems start with water getting where it should not. Before new tile or a new vanity goes in, Keith checks the subfloor, the wall behind the tub or shower, the shut-off valves and the exhaust fan.",
+      "Georgian Bay homes and cottages see damp summers and cold winters. A fan that vents outside, a waterproof membrane behind shower tile and good caulking at every joint keep moisture out of the walls and stop mould before it starts.",
+      "If you are planning ahead, tell Keith how long you plan to stay in the home and who uses the bathroom. A grab bar blocking in the wall now, or a shower with a low curb, costs little during a renovation and saves a second job later."
+    ],
+    "quote": { "text": "Professional, clean, and finished on time.", "name": "Mike", "context": "Bathroom renovation feedback" },
+    "faqsHeading": "Before we get started",
+    "faqs": [
+      { "q": "Can you work with my existing layout?", "a": "Yes. Many bathroom updates keep the toilet, sink and shower where they are, which keeps the work simpler. If you want to move a fixture, Keith will look at the plumbing and talk through what is involved." },
+      { "q": "How is the project priced?", "a": "Your estimate depends on the work, the materials and the condition of the space. Discuss the details with Keith and review the estimate before approving the project." },
+      { "q": "Who handles specialist work?", "a": "Where a job needs a licensed plumber or electrician, that requirement is identified in the estimate and coordinated with a licensed trade." },
+      { "q": "How is waterproofing handled in a shower?", "a": "Tiled showers go over a waterproof membrane before any tile is set. It is the part you never see, and the part that protects the walls and floor behind the tile." },
+      { "q": "Do you renovate cottage bathrooms?", "a": "Yes. Keith works on homes and cottages. Let him know if the property is seasonal, how to access it and any timing you need to plan around." }
+    ],
+    "related": [
+      { "name": "Tiling", "href": "/services/tiling", "icon": "layout-grid" },
+      { "name": "Shower & Tub Caulking", "href": "/services/shower-tub-caulking", "icon": "shower-head" },
+      { "name": "Plumbing Fixture Installation", "href": "/services/plumbing-fixture-install", "icon": "droplets" }
+    ],
+    "bandHeading": "Serving Collingwood, Wasaga Beach, Stayner and nearby communities.",
+    "formHeading": "Let’s plan your bathroom update.",
+    "formSub": "Tell Keith about your bathroom. You’ll get a free estimate."
+  }
+]

@@ -1,0 +1,26 @@
+---
+// Shared hub for /blog, /insights and /blog/author: header, grid of article cards, quote band.
+import Layout from '../layouts/Layout.astro';
+import PageHead from './PageHead.astro';
+import ArticleCard from './ArticleCard.astro';
+import QuoteBand from './QuoteBand.astro';
+import { business, webPage, breadcrumbs } from '../lib/schema.js';
+const { meta, crumbs = null, eyebrow, title, sub, list, more = null, indexing = 'index,follow' } = Astro.props;
+---
+<Layout {...meta} indexing={indexing} schemas={[business(), webPage(meta), crumbs && breadcrumbs(crumbs)]}>
+  <PageHead crumbs={crumbs} eyebrow={eyebrow} title={title} sub={sub} actions={false} />
+  <section class="section">
+    <div class="wrap">
+      <div class="grid">{list.map((a) => <ArticleCard a={a} />)}</div>
+      {more && <p class="more" set:html={more} />}
+    </div>
+  </section>
+  <QuoteBand heading="Let’s talk about your project." sub="Tell Keith what needs doing. You’ll get a free estimate." />
+</Layout>
+<style>
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .more { margin: 2rem 0 0; }
+  .more :global(a) { color: var(--teal); font-weight: 800; }
+  @media (max-width: 960px) { .grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+</style>

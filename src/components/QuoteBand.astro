@@ -1,0 +1,174 @@
+---
+// Quote form band. Short labelled form: name, phone, town/postcode, optional email,
+// service (preset from page context), project details. Keeps the source page.
+// Posts to the Cloudflare Pages Function /api/lead (functions/api/lead.js), which emails the lead via Emailit.
+// PREVIEW MODE (site.preview): the form validates but never sends anything.
+// The function itself only sends when LEADS_ENABLED=true is set in Cloudflare.
+import Icon from './Icon.astro';
+import { site, allServices } from '../data/site.js';
+const { heading, sub, service = null, detailsLabel = 'What needs doing?' } = Astro.props;
+---
+<section class="qb" id="quote" aria-labelledby="quote-h">
+  <div class="wrap qb__in">
+    <div class="qb__copy">
+      <h2 id="quote-h">{heading}</h2>
+      {sub && <p class="qb__sub">{sub}</p>}
+      <div class="qb__contact">
+        <a class="qb__phone" href={`tel:${site.phoneHref}`}><Icon name="phone" size={30} stroke={2.25} />{site.phone}</a>
+        <a class="qb__mail" href={`mailto:${site.email}`}><Icon name="mail" size={22} stroke={2} />{site.email}</a>
+      </div>
+    </div>
+
+    <form class="qf" method="post" action="/api/lead" data-preview={site.formsLive ? 'false' : 'true'} novalidate>
+      <input type="hidden" name="source_page" value={Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '/') || '/'} />
+      <div class="qf__hp" aria-hidden="true">
+        <label for="qf-company">Company (leave empty)</label>
+        <input id="qf-company" name="company" tabindex="-1" autocomplete="off" />
+      </div>
+      <div class="qf__grid">
+        <div class="qf__field">
+          <label for="qf-name">Your name</label>
+          <input id="qf-name" name="name" autocomplete="name" required />
+          <p class="qf__err" id="qf-name-err" hidden>Enter your name.</p>
+        </div>
+        <div class="qf__field">
+          <label for="qf-phone">Phone number</label>
+          <input id="qf-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required pattern="[\d\s\(\)\+\-\.]{10,}" />
+          <p class="qf__err" id="qf-phone-err" hidden>Enter a phone number with area code.</p>
+        </div>
+        <div class="qf__field">
+          <label for="qf-town">Town or postcode</label>
+          <input id="qf-town" name="town" autocomplete="address-level2" required />
+          <p class="qf__err" id="qf-town-err" hidden>Enter your town or postcode.</p>
+        </div>
+        <div class="qf__field">
+          <label for="qf-email">Email <span class="qf__opt">(optional)</span></label>
+          <input id="qf-email" name="email" type="email" autocomplete="email" />
+          <p class="qf__err" id="qf-email-err" hidden>Check the email address.</p>
+        </div>
+        {service && (
+          <div class="qf__field">
+            <label for="qf-service">Selected service</label>
+            <select id="qf-service" name="service">
+              {allServices.map((s) => <option selected={s === service}>{s}</option>)}
+              <option>Something else</option>
+            </select>
+          </div>
+        )}
+        <div class="qf__field qf__full">
+          <label for="qf-details">{service ? 'Project details' : detailsLabel}</label>
+          <textarea id="qf-details" name="details" rows="3" required></textarea>
+          <p class="qf__err" id="qf-details-err" hidden>Tell Keith a little about the job.</p>
+        </div>
+      </div>
+      {site.turnstileSiteKey && <div class="cf-turnstile qf__ts" data-sitekey={site.turnstileSiteKey} data-size="flexible"></div>}
+      <button class="btn btn--quote qf__submit" type="submit">Request a Free Estimate</button>
+      <p class="qf__note">{site.formDisclosure} <a href="/privacy-policy">Privacy policy</a></p>
+      <p class="qf__status" role="status" aria-live="polite" hidden></p>
+    </form>
+  </div>
+</section>
+{site.turnstileSiteKey && <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('.qf');
+  if (form) {
+    const status = form.querySelector<HTMLElement>('.qf__status')!;
+    const fields = [...form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('input:not([type=hidden]), textarea')];
+    const check = (el: HTMLInputElement | HTMLTextAreaElement) => {
+      const err = document.getElementById(`${el.id}-err`);
+      const ok = el.checkValidity();
+      el.setAttribute('aria-invalid', String(!ok));
+      if (err) { err.hidden = ok; ok ? el.removeAttribute('aria-describedby') : el.setAttribute('aria-describedby', err.id); }
+      return ok;
+    };
+    const say = (msg: string, kind: 'ok' | 'error') => {
+      status.hidden = false;
+      status.dataset.kind = kind;
+      status.textContent = msg;
+    };
+    const phone = document.querySelector<HTMLAnchorElement>('.qb__phone')?.textContent?.trim() ?? '';
+    const button = form.querySelector<HTMLButtonElement>('.qf__submit')!;
+    if (new URLSearchParams(location.search).get('error') === '1') {
+      say(`Your request could not be sent. Please try again or call ${phone}.`, 'error');
+    }
+    fields.forEach((el) => el.addEventListener('blur', () => { if (el.value) check(el); }));
+    form.addEventListener('submit', async (e) => {
+      const bad = fields.filter((el) => el.id !== 'qf-company' && !check(el));
+      if (bad.length) { e.preventDefault(); bad[0].focus(); return; }
+      e.preventDefault();
+      if (form.dataset.preview === 'true') {
+        say('Preview only: your details passed the checks, but nothing was sent. Live sending is switched on at launch.', 'ok');
+        return;
+      }
+      button.disabled = true;
+      button.textContent = 'Sending...';
+      try {
+        const r = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
+        const data = await r.json().catch(() => ({}));
+        if (r.ok && data.ok) {
+          form.reset();
+          say('Thanks. Your request was sent. Keith will review it and get back to you.', 'ok');
+        } else if (data.error === 'invalid') {
+          say('Some details need checking. Please review the highlighted fields.', 'error');
+          fields.forEach(check);
+        } else if (data.error === 'verification_failed') {
+          say('The spam check did not complete. Please try again.', 'error');
+        } else {
+          say(`Your request could not be sent. Please try again or call ${phone}.`, 'error');
+        }
+      } catch {
+        say(`Your request could not be sent. Please check your connection or call ${phone}.`, 'error');
+      } finally {
+        button.disabled = false;
+        button.textContent = 'Request a Free Estimate';
+        (window as any).turnstile?.reset?.();
+      }
+    });
+    // Problem cards can pre-fill the details box, e.g. "Loose railings".
+    document.querySelectorAll<HTMLAnchorElement>('[data-prefill]').forEach((a) => a.addEventListener('click', () => {
+      const t = form.querySelector<HTMLTextAreaElement>('#qf-details');
+      if (t && !t.value) t.value = `${a.dataset.prefill}: `;
+      setTimeout(() => t?.focus({ preventScroll: true }), 500);
+    }));
+  }
+</script>
+
+<style>
+  .qb { position: relative; background: #fff; padding-block: clamp(3rem, 6vw, 4.5rem); }
+  .qb__in { display: grid; justify-items: center; gap: 2rem; }
+  .qb__copy { text-align: center; }
+  .qb h2 { font-size: clamp(1.9rem, 3.4vw, 2.6rem); margin-bottom: 0.75rem; }
+  .qb__sub { color: var(--muted); max-width: 34rem; margin: 0 auto 1rem; }
+  .qb__contact { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 0.75rem 2rem; }
+  .qb__mail { display: inline-flex; align-items: center; gap: 0.5rem; padding-left: 2rem; border-left: 2px solid var(--line-cool); font-weight: 700; text-decoration: none; }
+  .qb__mail:hover { color: var(--teal); text-decoration: underline; }
+  .qb__phone { display: inline-flex; align-items: center; gap: 0.6rem; color: var(--teal); text-decoration: none; font-weight: 800; font-size: clamp(1.7rem, 3vw, 2.2rem); letter-spacing: -0.01em; }
+  .qb__phone:hover { text-decoration: underline; }
+  .qf { width: min(46rem, 100%); background: var(--cream); color: var(--navy); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(1.25rem, 2.5vw, 1.75rem); }
+  .qf__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem 1.25rem; }
+  .qf__full { grid-column: 1 / -1; }
+  .qf__field { display: grid; gap: 0.3rem; align-content: start; }
+  .qf label { font-size: 0.85rem; font-weight: 800; }
+  .qf__opt { font-weight: 600; color: var(--muted); }
+  .qf input, .qf select, .qf textarea {
+    width: 100%; min-height: 2.9rem; padding: 0.6rem 0.75rem; border: 1.5px solid #c2ccd2; border-radius: 6px;
+    font: 500 1rem/1.4 var(--font); color: var(--navy); background: #fff;
+  }
+  .qf textarea { min-height: 5.5rem; resize: vertical; }
+  .qf input:focus, .qf select:focus, .qf textarea:focus { outline: 3px solid var(--teal-bright); outline-offset: 1px; border-color: var(--teal); }
+  .qf [aria-invalid='true'] { border-color: #b3261e; }
+  .qf__err { margin: 0; font-size: 0.82rem; font-weight: 700; color: #b3261e; }
+  .qf__submit { width: 100%; margin-top: 1.1rem; }
+  .qf__note { margin: 0.75rem 0 0; font-size: 0.8rem; color: var(--muted); text-align: center; }
+  .qf__note a { color: var(--teal); font-weight: 700; }
+  .qf__status { margin: 0.75rem 0 0; padding: 0.75rem 1rem; border-radius: 6px; background: #e7f4f4; color: var(--navy); font-weight: 700; font-size: 0.9rem; }
+  .qf__status[data-kind='error'] { background: #fbe9e7; color: #8a1c14; }
+  .qf__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .qf__ts { margin-top: 1rem; }
+  .qf__submit:disabled { opacity: 0.7; cursor: wait; transform: none; }
+  @media (max-width: 860px) {
+    .qb__mail { padding-left: 0; border-left: 0; }
+    .qf__grid { grid-template-columns: 1fr; }
+  }
+</style>

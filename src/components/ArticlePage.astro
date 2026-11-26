@@ -1,0 +1,98 @@
+---
+// One template for /blog/<slug> and /insights/<slug> articles (content migrated from the live site).
+import Layout from '../layouts/Layout.astro';
+import Faq from './Faq.astro';
+import ClaimsCard from './ClaimsCard.astro';
+import ArticleCard from './ArticleCard.astro';
+import QuoteBand from './QuoteBand.astro';
+import { site } from '../data/site.js';
+import { allArticles, articleUrl } from '../data/content.js';
+import { business, webPage, breadcrumbs, article as articleSchema, faqPage } from '../lib/schema.js';
+
+const { a } = Astro.props;
+const path = articleUrl(a);
+const hub = a.kind === 'insights' ? { name: 'Insights', href: '/insights' } : { name: 'Blog', href: '/blog' };
+const meta = { path, title: a.seoTitle, description: a.seoDescription };
+const crumbs = [{ name: 'Home', href: '/' }, hub, { name: a.title, href: path }];
+const date = (a.dateModified || a.datePublished || '').slice(0, 10);
+const nice = date ? new Date(date + 'T12:00:00Z').toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' }) : '';
+// Related: three other articles sharing the most title words.
+const words = (t) => new Set(t.toLowerCase().match(/[a-z]{5,}/g) ?? []);
+const mine = words(a.title);
+const related = allArticles.filter((x) => x.slug !== a.slug)
+  .map((x) => ({ x, n: [...words(x.title)].filter((w) => mine.has(w) && w !== 'collingwood' && w !== 'handyman').length }))
+  .sort((p, q) => q.n - p.n).slice(0, 3).map((r) => r.x);
+---
+<Layout {...meta} schemas={[business(), webPage(meta), breadcrumbs(crumbs), articleSchema({ a, path }), faqPage(a.faqs)]}>
+  <section class="ah">
+    <div class="wrap ah__in">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <ol><li><a href="/">Home</a></li><li><a href={hub.href}>{hub.name}</a></li></ol>
+      </nav>
+      <h1>{a.title}</h1>
+      <p class="ah__meta">By <a href="/about">{site.owner}</a>{nice && <> · <time datetime={date}>{nice}</time></>}</p>
+      {a.lede && <p class="lede">{a.lede}</p>}
+    </div>
+  </section>
+
+  <div class="wrap art">
+    <article class="prose" set:html={a.html} />
+    <aside class="art__side">
+      <div class="art__card">
+        <ClaimsCard heading="Need a hand with this?" />
+        <a class="btn btn--quote art__btn" href="#quote">Request a Free Estimate</a>
+      </div>
+    </aside>
+  </div>
+
+  {a.faqs?.length > 0 && (
+    <div class="art__faq"><Faq title="Questions people ask" faqs={a.faqs} openFirst={false} /></div>
+  )}
+
+  {related.length > 0 && (
+    <section class="section section--cream rel" aria-labelledby="rel-h">
+      <div class="wrap">
+        <h2 id="rel-h">More practical reading</h2>
+        <div class="rel__grid">{related.map((x) => <ArticleCard a={x} h="h3" />)}</div>
+      </div>
+    </section>
+  )}
+
+  <QuoteBand heading="Let’s talk about your project." sub="Tell Keith what needs doing. You’ll get a free estimate." />
+</Layout>
+
+<style>
+  .ah { background: var(--cream); padding-block: 2.25rem 2.5rem; }
+  .ah__in > * { max-width: 54rem; }
+  .ah h1 { font-size: clamp(2rem, 4vw, 2.9rem); margin-bottom: 0.9rem; }
+  .ah__meta { margin: 0 0 0.75rem; font-size: 0.92rem; color: var(--muted); }
+  .ah__meta a { color: var(--teal); font-weight: 700; }
+  .crumbs ol { list-style: none; display: flex; gap: 0.4rem; padding: 0; margin: 0 0 1.25rem; font-size: 0.88rem; }
+  .crumbs li + li::before { content: '/'; margin-right: 0.4rem; color: var(--muted); }
+  .crumbs a { text-decoration: none; }
+  .art { display: grid; grid-template-columns: minmax(0, 1fr) 20rem; gap: 3.5rem; align-items: start; padding-block: 2.5rem 3rem; }
+  .art__side { position: sticky; top: 6.5rem; }
+  .art__card { padding: 1.75rem; background: var(--cream); border-radius: var(--radius-lg); }
+  .art__btn { width: 100%; margin-top: 1.25rem; }
+  .prose { max-width: 46rem; font-size: 1.05rem; }
+  .prose :global(h2) { font-size: 1.6rem; margin: 2.25rem 0 0.75rem; }
+  .prose :global(h3) { font-size: 1.2rem; margin: 1.75rem 0 0.5rem; }
+  .prose :global(p), .prose :global(li) { color: #2e3d52; }
+  .prose :global(ul), .prose :global(ol) { padding-left: 1.35rem; margin: 0 0 1.1rem; display: grid; gap: 0.35rem; }
+  .prose :global(a) { color: var(--teal); font-weight: 700; text-underline-offset: 3px; }
+  .prose :global(.takeaways) { margin: 0 0 2rem; padding: 1.5rem 1.75rem; background: #fff; border: 1px solid var(--line); border-left: 4px solid var(--teal-bright); border-radius: var(--radius); }
+  .prose :global(.takeaways h2) { font-size: 1.15rem; margin: 0 0 0.6rem; }
+  .prose :global(.takeaways ul) { margin: 0; }
+  .prose :global(table) { width: 100%; border-collapse: collapse; margin: 0 0 1.5rem; font-size: 0.92rem; display: block; overflow-x: auto; }
+  .prose :global(th), .prose :global(td) { text-align: left; vertical-align: top; padding: 0.55rem 0.7rem; border-bottom: 1px solid var(--line); }
+  .prose :global(th) { background: var(--cream); }
+  .prose :global(blockquote) { margin: 0 0 1.25rem; padding-left: 1.25rem; border-left: 3px solid var(--teal-bright); font-style: italic; }
+  .art__faq :global(.faq__in) { max-width: 52rem; }
+  .rel h2 { margin-bottom: 1.5rem; }
+  .rel__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  @media (max-width: 980px) {
+    .art { grid-template-columns: 1fr; gap: 2rem; }
+    .art__side { position: static; }
+    .rel__grid { grid-template-columns: 1fr; }
+  }
+</style>

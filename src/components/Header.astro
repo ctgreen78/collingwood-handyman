@@ -1,0 +1,130 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/collingwood-handyman-logo.png';
+import Icon from './Icon.astro';
+import { site, nav, serviceGroups, areas } from '../data/site.js';
+---
+<header class="hdr">
+  <div class="wrap hdr__in">
+    <a class="hdr__logo" href="/" aria-label={`${site.name} home`}>
+      <Image src={logo} alt="" width={420} widths={[210, 420]} sizes="210px" loading="eager" />
+    </a>
+
+    <nav class="nav" aria-label="Main">
+      {nav.map((n) => n.menu ? (
+        <details class="dd" data-dd>
+          <summary>{n.label}<Icon name="chevron-down" size={16} stroke={2.25} /></summary>
+          <div class:list={['dd__panel', { 'dd__panel--wide': n.menu === 'services' }]}>
+            {n.menu === 'services' ? (
+              <>
+                <div class="dd__grid">
+                  {serviceGroups.map((g) => (
+                    <div>
+                      <a class="dd__group" href={`/services#${g.id}`}>{g.title}</a>
+                      <ul>{g.services.map(([name, href]) => <li><a href={href}>{name}</a></li>)}</ul>
+                    </div>
+                  ))}
+                </div>
+                <a class="dd__all" href="/services">All services <Icon name="arrow-right" size={16} /></a>
+              </>
+            ) : (
+              <>
+                <ul>{areas.map(([name, href]) => <li><a href={href}>{name}</a></li>)}</ul>
+                <a class="dd__all" href="/service-areas">All service areas <Icon name="arrow-right" size={16} /></a>
+              </>
+            )}
+          </div>
+        </details>
+      ) : <a class="nav__link" href={n.href}>{n.label}</a>)}
+    </nav>
+
+    <div class="hdr__actions">
+      <a class="hdr__phone" href={`tel:${site.phoneHref}`}><Icon name="phone" size={18} stroke={2.25} />{site.phone}</a>
+      <a class="btn btn--navy hdr__quote" href="#quote">Request a Quote</a>
+    </div>
+
+    <button class="burger" type="button" aria-expanded="false" aria-controls="mnav">
+      <span class="sr-only">Menu</span><Icon name="menu" size={30} stroke={2.25} />
+    </button>
+  </div>
+
+  <nav id="mnav" class="mnav" aria-label="Mobile" hidden>
+    <div class="wrap">
+      <p class="mnav__h">Services</p>
+      <ul>{serviceGroups.map((g) => <li><a href={`/services#${g.id}`}>{g.title}</a></li>)}<li><a href="/services">All services</a></li></ul>
+      <p class="mnav__h">Service areas</p>
+      <ul class="mnav__areas">{areas.map(([name, href]) => <li><a href={href}>{name}</a></li>)}</ul>
+      <ul>
+        <li><a href="/about">About Keith</a></li>
+        <li><a href="/reviews">Reviews</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<script>
+  // Dropdowns: one open at a time, close on outside click and Escape.
+  const dds = [...document.querySelectorAll<HTMLDetailsElement>('[data-dd]')];
+  dds.forEach((d) => d.addEventListener('toggle', () => {
+    if (d.open) dds.forEach((o) => { if (o !== d) o.open = false; });
+  }));
+  document.addEventListener('click', (e) => {
+    dds.forEach((d) => { if (!d.contains(e.target as Node)) d.open = false; });
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    dds.forEach((d) => { if (d.open) { d.open = false; d.querySelector('summary')?.focus(); } });
+  });
+  // Mobile menu
+  const b = document.querySelector('.burger');
+  const m = document.getElementById('mnav');
+  b?.addEventListener('click', () => {
+    const open = b.getAttribute('aria-expanded') === 'true';
+    b.setAttribute('aria-expanded', String(!open));
+    if (m) m.hidden = open;
+  });
+</script>
+
+<style>
+  .hdr { position: sticky; top: 0; z-index: 50; background: #fff; border-bottom: 1px solid var(--line-cool); }
+  .hdr__in { display: flex; align-items: center; gap: 2rem; min-height: 5rem; }
+  .hdr__logo { flex: none; display: block; width: 210px; padding-right: 1.75rem; border-right: 1px solid var(--line-cool); }
+  .nav { display: flex; align-items: center; gap: 2rem; }
+  .nav__link, .dd summary { font-weight: 700; font-size: 0.95rem; text-decoration: none; padding-block: 0.5rem; }
+  .nav__link:hover, .dd summary:hover { color: var(--teal); }
+  .dd { position: relative; }
+  .dd summary { list-style: none; display: flex; align-items: center; gap: 0.3rem; cursor: pointer; }
+  .dd summary::-webkit-details-marker { display: none; }
+  .dd[open] summary :global(.icon) { transform: rotate(180deg); }
+  .dd__panel {
+    position: absolute; top: calc(100% + 0.9rem); left: -1rem; min-width: 15rem; z-index: 60;
+    background: #fff; border: 1px solid var(--line-cool); border-radius: var(--radius); padding: 1.25rem;
+    box-shadow: 0 18px 40px rgba(30, 48, 73, 0.14);
+  }
+  .dd__panel--wide { width: min(52rem, 84vw); left: -6rem; }
+  .dd__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem 1.5rem; }
+  .dd__group { display: block; font-weight: 800; text-decoration: none; margin-bottom: 0.35rem; color: var(--teal); }
+  .dd ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.2rem; }
+  .dd li a { font-size: 0.9rem; text-decoration: none; color: var(--muted); }
+  .dd li a:hover { color: var(--navy); text-decoration: underline; }
+  .dd__all { display: inline-flex; align-items: center; gap: 0.35rem; margin-top: 1rem; font-weight: 800; font-size: 0.9rem; color: var(--teal); }
+  .hdr__actions { display: flex; align-items: center; gap: 1.25rem; margin-left: auto; padding-left: 1.5rem; border-left: 1px solid var(--line-cool); }
+  .hdr__phone { display: inline-flex; align-items: center; gap: 0.45rem; font-weight: 800; color: var(--teal); text-decoration: none; white-space: nowrap; }
+  .hdr__phone:hover { color: var(--teal); }
+  .hdr__quote { min-height: 2.9rem; padding-inline: 1.15rem; font-size: 0.95rem; }
+  .burger { display: none; margin-left: auto; width: 3rem; height: 3rem; border: 0; background: none; color: var(--navy); cursor: pointer; }
+  .mnav { border-top: 1px solid var(--line-cool); padding-block: 1rem 1.5rem; max-height: 75vh; overflow-y: auto; }
+  .mnav[hidden] { display: none; }
+  .mnav__h { margin: 0.75rem 0 0.25rem; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); }
+  .mnav ul { list-style: none; padding: 0; margin: 0; }
+  .mnav li a { display: block; padding: 0.6rem 0; font-weight: 700; text-decoration: none; border-bottom: 1px solid var(--line-cool); }
+  .mnav__areas { display: grid; grid-template-columns: 1fr 1fr; column-gap: 1rem; }
+  @media (max-width: 1080px) { .nav { gap: 1.25rem; } .hdr__in { gap: 1.25rem; } }
+  @media (max-width: 960px) {
+    .nav, .hdr__actions { display: none; }
+    .burger { display: grid; place-items: center; }
+    .hdr__logo { width: 180px; padding-right: 0; border-right: 0; }
+  }
+  @media (min-width: 961px) { .mnav { display: none; } }
+</style>

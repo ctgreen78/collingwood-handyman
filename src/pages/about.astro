@@ -1,0 +1,88 @@
+---
+// About Keith. Facts from the live About page (read 2026-11-26) and the claims Keith confirmed.
+// No photo of Keith yet: the panel shows the confirmed claims until a real photo arrives.
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import TrustStrip from '../components/TrustStrip.astro';
+import QuoteCard from '../components/QuoteCard.astro';
+import TownsBand from '../components/TownsBand.astro';
+import QuoteBand from '../components/QuoteBand.astro';
+import Icon from '../components/Icon.astro';
+import { site, serviceGroups } from '../data/site.js';
+import { business, webPage, breadcrumbs } from '../lib/schema.js';
+
+const meta = { path: '/about', title: 'About Keith Diver | Collingwood Handyman', description: 'Meet Keith Diver, owner of Collingwood Handyman. 30+ years in the trades, licensed and insured, working on homes and cottages around Collingwood.' };
+const crumbs = [{ name: 'Home', href: '/' }, { name: 'About Keith', href: '/about' }];
+const values = [
+  { icon: 'clock', title: 'Reliability', body: 'Keith shows up when he says he will, and keeps you posted if anything changes.' },
+  { icon: 'ruler', title: 'Careful work', body: 'Thirty years in the trades means the job is planned properly and finished cleanly.' },
+  { icon: 'file-text', title: 'Clear estimates', body: 'You see the scope and the price before work starts, with no hidden fees.' },
+  { icon: 'house', title: 'Local roots', body: 'Keith knows how Georgian Bay weather treats homes, decks and cottages.' },
+];
+const person = {
+  '@context': 'https://schema.org', '@type': 'Person', name: site.owner, jobTitle: 'Owner',
+  worksFor: { '@id': `${site.url}/#business` }, url: `${site.url}/about`,
+};
+---
+<Layout {...meta} schemas={[business(), webPage(meta), breadcrumbs(crumbs), person]}>
+  <Hero crumbs={crumbs} eyebrow="About Keith Diver" title="Your local handyman, with 30+ years in the&nbsp;trades." sub="Keith Diver owns Collingwood Handyman and does the work himself, on homes and cottages around Collingwood and the southern Georgian Bay." panel={{ icon: 'hammer', heading: 'What you can count on' }} />
+  <TrustStrip />
+
+  <section class="section story">
+    <div class="wrap story__in">
+      <div>
+        <h2>A lifetime in the trades.</h2>
+        <p>Keith started in the trades more than 30 years ago, here in the Collingwood area. He learned from local tradespeople who took pride in their work, and he has worked on homes, cottages and seasonal properties across Simcoe County ever since.</p>
+        <p>Over those years he has handled almost every kind of home repair and improvement, from a sticking door to a full bathroom renovation. Small jobs get the same care as big ones.</p>
+        <p>Living locally, Keith understands what lake humidity, freeze-thaw winters and heavy snow do to decks, siding, windows and plumbing. That knowledge shapes how he plans each job.</p>
+      </div>
+      <div class="story__quote"><QuoteCard /></div>
+    </div>
+  </section>
+
+  <section class="section section--cream vals" aria-labelledby="vals-h">
+    <div class="wrap">
+      <h2 id="vals-h" class="center">What guides every job</h2>
+      <ul class="vals__grid">
+        {values.map((v) => <li><Icon name={v.icon} size={36} stroke={1.5} /><h3>{v.title}</h3><p>{v.body}</p></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section exp" aria-labelledby="exp-h">
+    <div class="wrap">
+      <h2 id="exp-h">What Keith works on</h2>
+      <ul class="exp__grid">
+        {serviceGroups.map((g) => <li><a href={`/services#${g.id}`}><Icon name={g.icon} size={28} stroke={1.5} /><span><strong>{g.title}</strong><span>{g.blurb}</span></span></a></li>)}
+      </ul>
+      <p class="muted exp__note">Work that needs a licensed electrician, plumber or gas technician is identified in the estimate and coordinated with a licensed trade.</p>
+    </div>
+  </section>
+
+  <TownsBand heading="Here for your home. And your place away from&nbsp;home." />
+  <QuoteBand heading="Let’s talk about your project." sub="Tell Keith what needs doing. You’ll get a free, no-obligation estimate." />
+</Layout>
+
+<style>
+  .story__in { display: grid; grid-template-columns: 1.4fr 1fr; gap: 4rem; align-items: center; }
+  .story h2 { margin-bottom: 1rem; }
+  .story p { color: var(--muted); }
+  .story__quote { padding: 2rem; background: var(--cream); border-radius: var(--radius-lg); }
+  .vals h2 { margin-bottom: 2rem; }
+  .vals__grid { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+  .vals__grid li { padding: 1.5rem; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+  .vals__grid :global(.icon) { color: var(--teal); margin-bottom: 0.75rem; }
+  .vals__grid h3 { margin-bottom: 0.4rem; }
+  .vals__grid p { margin: 0; font-size: 0.95rem; color: var(--muted); }
+  .exp h2 { margin-bottom: 1.5rem; }
+  .exp__grid { list-style: none; padding: 0; margin: 0 0 1.25rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  .exp__grid a { display: flex; gap: 0.9rem; align-items: flex-start; height: 100%; padding: 1.1rem 1.2rem; border: 1px solid var(--line); border-radius: var(--radius); text-decoration: none; }
+  .exp__grid a:hover { border-color: var(--teal-bright); }
+  .exp__grid :global(.icon) { flex: none; color: var(--teal); }
+  .exp__grid a > span { display: grid; gap: 0.2rem; }
+  .exp__grid strong { font-weight: 800; }
+  .exp__grid a > span > span { font-size: 0.9rem; color: var(--muted); }
+  @media (max-width: 960px) { .vals__grid, .exp__grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 860px) { .story__in { grid-template-columns: 1fr; gap: 2rem; } }
+  @media (max-width: 560px) { .vals__grid, .exp__grid { grid-template-columns: 1fr; } }
+</style>

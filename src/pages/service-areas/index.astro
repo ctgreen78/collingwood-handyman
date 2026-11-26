@@ -1,0 +1,39 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHead from '../../components/PageHead.astro';
+import TrustStrip from '../../components/TrustStrip.astro';
+import QuoteBand from '../../components/QuoteBand.astro';
+import Icon from '../../components/Icon.astro';
+import { areaPages } from '../../data/content.js';
+import { site } from '../../data/site.js';
+import { business, webPage, breadcrumbs } from '../../lib/schema.js';
+const meta = { path: '/service-areas', title: 'Service Areas | Collingwood Handyman', description: 'Keith Diver is based in Collingwood and serves Wasaga Beach, Stayner, Barrie, Innisfil, Orillia, New Tecumseth and Oro-Medonte. Call 705-795-4009.' };
+const crumbs = [{ name: 'Home', href: '/' }, { name: 'Service Areas', href: '/service-areas' }];
+---
+<Layout {...meta} schemas={[business(), webPage(meta), breadcrumbs(crumbs)]}>
+  <PageHead crumbs={crumbs} eyebrow="Based in Collingwood" title="Here for your home. And your place away from&nbsp;home." sub="Keith Diver works on homes and cottages in Collingwood and across the southern Georgian Bay area. Pick your town, or call to check a location." />
+  <TrustStrip />
+  <section class="section">
+    <div class="wrap">
+      <ul class="ar">
+        {areaPages.map((a) => (
+          <li><a href={`/service-areas/${a.slug}`}><Icon name="map-pin" size={26} stroke={1.75} /><span><strong>{a.name}</strong><span>{a.sub}</span></span><Icon name="arrow-right" size={18} stroke={2.25} class="ar__arrow" /></a></li>
+        ))}
+      </ul>
+      <p class="muted ar__note">Keith also helps cottage owners around Elmvale and the wider Georgian Bay cottage country. Not sure if your address is covered? Call <a href={`tel:${site.phoneHref}`}>{site.phone}</a>.</p>
+    </div>
+  </section>
+  <QuoteBand heading="Let’s talk about your project." sub="Tell Keith where the job is and what needs doing." />
+</Layout>
+<style>
+  .ar { list-style: none; padding: 0; margin: 0 0 1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .ar a { display: flex; gap: 1rem; align-items: flex-start; height: 100%; padding: 1.25rem 1.4rem; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); text-decoration: none; box-shadow: var(--shadow); transition: transform 0.2s ease, border-color 0.2s ease; }
+  .ar a:hover { transform: translateY(-2px); border-color: var(--teal-bright); }
+  .ar a > :global(.icon:first-child) { flex: none; color: var(--teal); margin-top: 0.15rem; }
+  .ar a > span { flex: 1; display: grid; gap: 0.3rem; }
+  .ar strong { font-weight: 800; font-size: 1.2rem; }
+  .ar a > span > span { font-size: 0.92rem; color: var(--muted); }
+  .ar :global(.ar__arrow) { flex: none; color: var(--teal); margin-top: 0.3rem; }
+  .ar__note a { color: var(--teal); font-weight: 800; }
+  @media (max-width: 760px) { .ar { grid-template-columns: 1fr; } }
+</style>

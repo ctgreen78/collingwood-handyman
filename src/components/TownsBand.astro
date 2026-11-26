@@ -1,0 +1,30 @@
+---
+// Navy band. Home: slogan + town list. Inner pages: one line + link to service areas.
+import Icon from './Icon.astro';
+import { bandTowns } from '../data/site.js';
+const { heading, towns = true } = Astro.props;
+---
+<section class="tb" aria-label="Service area">
+  <div class="wrap tb__in">
+    <p class="tb__h" set:html={heading} />
+    <div class="tb__side">
+      {towns && <ul>{bandTowns.map((t) => <li>{t}</li>)}</ul>}
+      <a class="tb__link" href="/service-areas">{towns ? 'Explore Service Areas' : 'View Service Areas'} <Icon name="arrow-right" size={18} stroke={2.25} /></a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .tb { background: var(--navy); color: #fff; padding-block: clamp(2.5rem, 5vw, 3.5rem); }
+  .tb__in { display: grid; grid-template-columns: 1.3fr 1fr; gap: 3rem; align-items: center; }
+  .tb__h { margin: 0; font-size: clamp(1.7rem, 3.2vw, 2.4rem); font-weight: 800; line-height: 1.12; letter-spacing: -0.025em; }
+  .tb__side { padding-left: 3rem; border-left: 2px solid var(--teal-bright); }
+  .tb ul { list-style: none; padding: 0; margin: 0 0 0.9rem; display: grid; gap: 0.15rem; font-size: 1rem; }
+  .tb__link { display: inline-flex; align-items: center; gap: 0.4rem; color: #7fd0e6; font-weight: 800; text-decoration: underline; text-underline-offset: 4px; }
+  .tb__link:hover { color: #fff; }
+  @media (max-width: 760px) {
+    .tb__in { grid-template-columns: 1fr; gap: 1.5rem; }
+    .tb__side { padding-left: 1.25rem; }
+    .tb ul { grid-template-columns: 1fr 1fr; }
+  }
+</style>

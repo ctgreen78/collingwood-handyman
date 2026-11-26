@@ -1,0 +1,95 @@
+---
+// Area pages (/service-areas/<slug>), content in src/data/content/areas.json.
+import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/Hero.astro';
+import TrustStrip from '../../components/TrustStrip.astro';
+import Faq from '../../components/Faq.astro';
+import TownsBand from '../../components/TownsBand.astro';
+import QuoteBand from '../../components/QuoteBand.astro';
+import Icon from '../../components/Icon.astro';
+import { areaPages, serviceBySlug, areaBySlug } from '../../data/content.js';
+import { serviceGroups } from '../../data/site.js';
+import { business, webPage, breadcrumbs, faqPage } from '../../lib/schema.js';
+
+export function getStaticPaths() { return areaPages.map((a) => ({ params: { slug: a.slug }, props: { a } })); }
+const { a } = Astro.props;
+const path = `/service-areas/${a.slug}`;
+const meta = { path, title: a.seoTitle, description: a.seoDescription };
+const crumbs = [{ name: 'Home', href: '/' }, { name: 'Service Areas', href: '/service-areas' }, { name: a.name, href: path }];
+const groupIcon = Object.fromEntries(serviceGroups.flatMap((g) => g.services.map(([, h]) => [h.split('/').pop(), g.icon])));
+const popular = a.popular.map((slug) => ({ slug, s: serviceBySlug[slug] })).filter((p) => p.s);
+---
+<Layout {...meta} schemas={[business(), webPage(meta), breadcrumbs(crumbs), faqPage(a.faqs)]}>
+  <Hero crumbs={crumbs} eyebrow={a.eyebrow} title={a.h1} sub={a.sub} panel={{ icon: 'map-pin', heading: `Why ${a.name.split(' (')[0]} homeowners call Keith` }} />
+  <TrustStrip />
+
+  <section class="section intro">
+    <div class="wrap intro__in">{a.intro.map((p) => <p>{p}</p>)}</div>
+  </section>
+
+  <section class="section section--cream pop" aria-labelledby="pop-h">
+    <div class="wrap">
+      <h2 id="pop-h" class="center">Popular services in {a.name.split(' (')[0]}</h2>
+      <ul class="pop__grid">
+        {popular.map(({ slug, s }) => (
+          <li><a href={`/services/${slug}`}><Icon name={s.cards?.[0]?.icon ?? groupIcon[slug] ?? 'wrench'} size={34} stroke={1.5} /><span><strong>{s.name}</strong></span><Icon name="arrow-right" size={18} stroke={2.25} class="pop__arrow" /></a></li>
+        ))}
+      </ul>
+      <div class="center"><a class="btn btn--quote" href="/services">View All Services</a></div>
+    </div>
+  </section>
+
+  <section class="section local" aria-labelledby="local-h">
+    <div class="wrap">
+      <h2 id="local-h">{a.localHeading}</h2>
+      <div class="local__grid">
+        {a.local.map((l, i) => (
+          <div class="local__item"><span class="local__n">{String(i + 1).padStart(2, '0')}</span><h3>{l.title}</h3><p>{l.body}</p></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <div class="section--cream faq-wrap"><Faq title={`${a.name.split(' (')[0]} questions`} faqs={a.faqs} openFirst={false} /></div>
+
+  {a.nearby?.length > 0 && (
+    <section class="section nearby">
+      <div class="wrap nearby__in">
+        <h2>Also serving nearby</h2>
+        <ul>{a.nearby.filter((n) => areaBySlug[n]).map((n) => <li><a href={`/service-areas/${n}`}>{areaBySlug[n].name}</a></li>)}</ul>
+      </div>
+    </section>
+  )}
+
+  <TownsBand heading="Here for your home. And your place away from&nbsp;home." />
+  <QuoteBand heading={a.formHeading} sub={a.formSub} />
+</Layout>
+
+<style>
+  .intro__in { max-width: 48rem; font-size: 1.12rem; }
+  .intro__in p:last-child { margin-bottom: 0; }
+  .pop h2 { margin-bottom: 1.75rem; }
+  .pop__grid { list-style: none; padding: 0; margin: 0 0 2rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  .pop__grid a { display: flex; align-items: center; gap: 1rem; height: 100%; padding: 1.1rem 1.25rem; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); text-decoration: none; box-shadow: var(--shadow); transition: transform 0.2s ease, border-color 0.2s ease; }
+  .pop__grid a:hover { transform: translateY(-2px); border-color: var(--teal-bright); }
+  .pop__grid a > :global(.icon:first-child) { flex: none; color: var(--teal); }
+  .pop__grid span { flex: 1; font-size: 1.05rem; }
+  .pop__grid strong { font-weight: 800; }
+  .pop__grid :global(.pop__arrow) { color: var(--teal); }
+  .local h2 { margin-bottom: 1.75rem; max-width: 22ch; }
+  .local__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+  .local__item { padding-top: 1rem; border-top: 2px solid var(--teal-bright); }
+  .local__n { font-size: 1.6rem; font-weight: 800; color: var(--teal-bright); }
+  .local__item h3 { margin: 0.4rem 0 0.5rem; }
+  .local__item p { color: var(--muted); margin: 0; }
+  .faq-wrap { background: var(--cream); }
+  .faq-wrap :global(.faq__head) { text-align: center; }
+  .faq-wrap :global(.faq__in) { max-width: 52rem; }
+  .nearby__in { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 2rem; }
+  .nearby h2 { font-size: 1.3rem; }
+  .nearby ul { list-style: none; display: flex; flex-wrap: wrap; gap: 0.75rem; padding: 0; margin: 0; }
+  .nearby a { display: inline-block; padding: 0.55rem 1rem; border: 1.5px solid var(--teal); border-radius: 999px; color: var(--teal); font-weight: 800; text-decoration: none; }
+  .nearby a:hover { background: var(--teal); color: #fff; }
+  @media (max-width: 900px) { .pop__grid { grid-template-columns: 1fr 1fr; } .local__grid { grid-template-columns: 1fr; gap: 1.5rem; } }
+  @media (max-width: 560px) { .pop__grid { grid-template-columns: 1fr; } }
+</style>

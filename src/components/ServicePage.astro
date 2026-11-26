@@ -1,0 +1,150 @@
+---
+// Service page template, mockup A "Bathroom service", driven by one object in content/services.json.
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import Hero from './Hero.astro';
+import TrustStrip from './TrustStrip.astro';
+import Steps from './Steps.astro';
+import QuoteCard from './QuoteCard.astro';
+import Faq from './Faq.astro';
+import TownsBand from './TownsBand.astro';
+import QuoteBand from './QuoteBand.astro';
+import Icon from './Icon.astro';
+import ClaimsCard from './ClaimsCard.astro';
+import { photos, serviceImage } from '../data/media.js';
+import { webPage, breadcrumbs, service as serviceSchema, faqPage, business } from '../lib/schema.js';
+
+const { s } = Astro.props;
+const path = `/services/${s.slug}`;
+const meta = { path, title: s.seoTitle, description: s.seoDescription };
+const crumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Services', href: '/services' },
+  { name: s.name.replace(/^./, (c) => c.toUpperCase()), href: path },
+];
+// Hero: a real job photo named in the content, else the page's AI scene (no people).
+const hero = s.image ? photos[s.image] : serviceImage(s.slug);
+const cardIcon = s.cards?.[0]?.icon ?? 'wrench';
+// Process photo is optional. Without one, the steps sit beside the customer quote.
+const proc = s.processImage ? photos[s.processImage] : null;
+---
+<Layout {...meta} schemas={[business(), webPage(meta), breadcrumbs(crumbs), serviceSchema({ name: s.name, path, description: s.seoDescription }), faqPage(s.faqs)]}>
+  <Hero crumbs={crumbs} eyebrow={s.eyebrow} title={s.h1} sub={s.sub} image={hero?.src} imageAlt={hero?.alt} shape="portrait" panel={{ icon: cardIcon }} />
+
+  <TrustStrip />
+
+  <section class="section section--cream cards" aria-labelledby="cards-h">
+    <div class="wrap">
+      <h2 id="cards-h" class="center">{s.cardsHeading}</h2>
+      {s.cardsIntro && <p class="cards__intro center">{s.cardsIntro}</p>}
+      <ul class="cards__grid">
+        {s.cards.map((c) => (
+          <li>
+            <a class="cards__card" href="#quote" data-prefill={c.title}>
+              <span class="cards__icon"><Icon name={c.icon} size={46} stroke={1.4} /></span>
+              <span class="cards__txt"><strong>{c.title}</strong><span>{c.body}</span></span>
+              <Icon name="arrow-right" size={20} stroke={2.25} class="cards__arrow" />
+            </a>
+          </li>
+        ))}
+      </ul>
+      <p class="cards__note center">{s.scopeNote}</p>
+    </div>
+  </section>
+
+  <section class="section proc" aria-labelledby="proc-h">
+    <div class:list={['wrap proc__in', { 'proc__in--photo': proc }]}>
+      {proc && (
+        <figure class="proc__media">
+          <Image src={proc.src} alt={proc.alt} width={720} height={720} fit="cover" quality={72} widths={[480, 720]} sizes="(max-width: 860px) 100vw, 45vw" />
+        </figure>
+      )}
+      <div>
+        <h2 id="proc-h" class="proc__h">{s.processHeading}</h2>
+        <Steps steps={s.steps} vertical />
+      </div>
+      <div class="proc__quote">
+        {s.quote ? <QuoteCard text={s.quote.text} name={s.quote.name} context={s.quote.context} /> : <ClaimsCard />}
+      </div>
+    </div>
+  </section>
+
+  {s.detailHeading && (
+    <section class="section detail" aria-labelledby="detail-h">
+      <div class="wrap detail__in">
+        <h2 id="detail-h">{s.detailHeading}</h2>
+        <div>{s.detailBody.map((p) => <p>{p}</p>)}</div>
+      </div>
+    </section>
+  )}
+
+  <div class="section--cream faq-wrap">
+    <Faq title={s.faqsHeading} faqs={s.faqs} openFirst={false} />
+  </div>
+
+  <section class="section related" aria-labelledby="rel-h">
+    <div class="wrap">
+      <h2 id="rel-h" class="center">Related services</h2>
+      <ul class="related__grid">
+        {s.related.map((r) => (
+          <li><a href={r.href}><Icon name={r.icon} size={40} stroke={1.4} /><span>{r.name}</span></a></li>
+        ))}
+      </ul>
+      <div class="center"><a class="btn btn--quote" href="/services">Explore All Services</a></div>
+    </div>
+  </section>
+
+  <TownsBand heading={s.bandHeading} towns={false} />
+
+  <QuoteBand heading={s.formHeading} sub={s.formSub} service={s.name} />
+</Layout>
+
+<style>
+  .cards h2 { margin-bottom: 0.75rem; }
+  .cards__intro { max-width: 44rem; margin: 0 auto 2rem; color: var(--muted); }
+  .cards__grid { list-style: none; padding: 0; margin: 0 auto; max-width: 64rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+  .cards__card {
+    position: relative; display: flex; gap: 1.5rem; align-items: flex-start; height: 100%;
+    padding: 1.5rem 3rem 1.5rem 1.5rem; background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
+    text-decoration: none; box-shadow: var(--shadow); transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+  .cards__card:hover { transform: translateY(-3px); border-color: var(--teal-bright); }
+  .cards__icon { flex: none; color: var(--teal); }
+  .cards__txt { display: grid; gap: 0.35rem; }
+  .cards__txt strong { font-weight: 800; font-size: 1.25rem; letter-spacing: -0.02em; line-height: 1.2; }
+  .cards__txt span { font-size: 0.95rem; color: var(--muted); }
+  .cards__card :global(.cards__arrow) { position: absolute; right: 1.25rem; bottom: 1.25rem; color: var(--teal); transition: transform 0.2s ease; }
+  .cards__card:hover :global(.cards__arrow) { transform: translateX(4px); }
+  .cards__note { margin: 1.5rem 0 0; font-size: 0.92rem; font-style: italic; color: var(--muted); }
+
+  .proc__in { display: grid; grid-template-columns: 1.2fr 1fr; gap: 4rem; align-items: center; }
+  .proc__in--photo { grid-template-columns: 1fr 1fr; }
+  .proc__in--photo .proc__quote { grid-column: 1 / -1; max-width: 36rem; }
+  .proc__media { margin: 0; }
+  .proc__media img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius-lg); }
+  .proc__h { font-size: clamp(2rem, 3.6vw, 2.75rem); max-width: 14ch; margin-bottom: 2rem; }
+  .proc__quote { padding: 2rem 2rem 1.75rem; background: var(--cream); border-radius: var(--radius-lg); }
+
+  .detail { padding-top: 0; }
+  .detail__in { display: grid; grid-template-columns: 1fr 1.4fr; gap: 3rem; align-items: start; padding-top: clamp(2.5rem, 5vw, 3.5rem); border-top: 1px solid var(--line); }
+  .detail h2 { font-size: clamp(1.6rem, 2.8vw, 2.1rem); max-width: 16ch; }
+  .detail p { color: var(--muted); }
+  .faq-wrap { background: var(--cream); }
+  .faq-wrap :global(.faq__head) { text-align: center; }
+  .faq-wrap :global(.faq__in) { max-width: 52rem; }
+
+  .related h2 { margin-bottom: 1.75rem; }
+  .related__grid { list-style: none; padding: 0; margin: 0 auto 2rem; max-width: 56rem; display: grid; grid-template-columns: repeat(3, 1fr); }
+  .related__grid li + li { border-left: 1px solid var(--line-cool); }
+  .related__grid a { display: flex; font-weight: 800; align-items: center; justify-content: center; gap: 1rem; padding: 0.5rem 1.25rem; font-weight: 800; font-size: 1.05rem; text-decoration: none; }
+  .related__grid a :global(.icon) { flex: none; color: var(--teal); }
+  .related__grid a:hover span { color: var(--teal); text-decoration: underline; }
+
+  @media (max-width: 860px) {
+    .cards__grid { grid-template-columns: 1fr; }
+    .proc__in, .proc__in--photo, .detail__in { grid-template-columns: 1fr; gap: 2rem; }
+    .related__grid { grid-template-columns: 1fr; gap: 0.5rem; }
+    .related__grid li + li { border-left: 0; border-top: 1px solid var(--line-cool); }
+    .related__grid a { justify-content: flex-start; padding: 0.9rem 0; }
+  }
+</style>

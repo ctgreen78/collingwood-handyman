@@ -1,0 +1,48 @@
+---
+// For tenants in rentals Keith maintains for landlords. Rewritten from the live page without the
+// unconfirmed "technicians" and "background-checked" claims.
+import Layout from '../layouts/Layout.astro';
+import PageHead from '../components/PageHead.astro';
+import Steps from '../components/Steps.astro';
+import Faq from '../components/Faq.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../data/site.js';
+import { business, webPage, breadcrumbs, faqPage } from '../lib/schema.js';
+const meta = { path: '/tenants', title: 'For Tenants: Repair Requests | Collingwood Handyman', description: 'Renting a home Collingwood Handyman maintains? How to report a repair, what counts as urgent and what to expect before Keith visits your unit.' };
+const crumbs = [{ name: 'Home', href: '/' }, { name: 'For Tenants', href: '/tenants' }];
+const steps = [
+  { title: 'Tell your landlord first', body: 'If your landlord or property manager has a repair request process, use it. It keeps the request on record.' },
+  { title: 'Contact Keith if authorized', body: 'If your landlord has asked Keith to take requests directly, call or email with your address, unit and the problem.' },
+  { title: 'Keith books the visit', body: 'Keith confirms the details, gives notice before entry and books a time for the repair.' },
+];
+const faqs = [
+  { q: 'Who do I contact for a maintenance issue?', a: 'Start with your landlord or property manager. Contact Keith directly only if your landlord has told you he takes requests for your property.' },
+  { q: 'What counts as an emergency?', a: 'Active leaks, no heat in winter, a lost exterior lock or anything unsafe. For fire, gas smells or a medical emergency, call 911 first. Then tell your landlord.' },
+  { q: 'Will I get notice before someone enters my unit?', a: 'Yes. In Ontario, landlords must give written notice at least 24 hours before entering for a repair, except in an emergency or when you agree to it.' },
+  { q: 'Do I need to be home for the repair?', a: 'Not always. Your landlord arranges entry. Tell them if you want to be there, or if there are pets or access details Keith should know.' },
+  { q: 'Do I pay for repairs?', a: 'Repairs are arranged and paid for by your landlord. Talk to your landlord about any question on costs.' },
+];
+---
+<Layout {...meta} schemas={[business(), webPage(meta), breadcrumbs(crumbs), faqPage(faqs)]}>
+  <PageHead crumbs={crumbs} eyebrow="For tenants" title="Reporting a repair in your&nbsp;rental." sub="Keith maintains rental homes for landlords and property managers. Here is how to get a repair handled and what to expect." actions={false} />
+  <section class="section">
+    <div class="wrap">
+      <h2 class="tn__h">How to request a repair</h2>
+      <Steps steps={steps} />
+    </div>
+  </section>
+  <div class="section--cream tn__faq"><Faq title="Tenant questions" faqs={faqs} openFirst={false} /></div>
+  <section class="section">
+    <div class="wrap tn__cta">
+      <p>Authorized to contact Keith directly? Call <a href={`tel:${site.phoneHref}`}>{site.phone}</a> or email <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+      <p>Landlord or property manager? <a href="/services/property-manager-maintenance">See property manager maintenance <Icon name="arrow-right" size={16} stroke={2.25} /></a></p>
+    </div>
+  </section>
+</Layout>
+<style>
+  .tn__h { margin-bottom: 1.5rem; }
+  .tn__faq { background: var(--cream); }
+  .tn__faq :global(.faq__in) { max-width: 52rem; }
+  .tn__cta p { font-size: 1.1rem; }
+  .tn__cta a { color: var(--teal); font-weight: 800; }
+</style>

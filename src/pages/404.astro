@@ -1,0 +1,31 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import { site, serviceGroups } from '../data/site.js';
+---
+<Layout path="/404" title="Page not found | Collingwood Handyman" description="The page you requested could not be found." indexing="noindex,follow">
+  <section class="section section--cream">
+    <div class="wrap">
+      <p class="eyebrow">Page not found</p>
+      <h1>That page isn’t here.</h1>
+      <p class="lede">It may have moved. Try a service below, or call Keith at <a href={`tel:${site.phoneHref}`}>{site.phone}</a>.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <ul class="nf">
+        {serviceGroups.map((g) => <li><a href={`/services#${g.id}`}><Icon name={g.icon} size={26} stroke={1.5} />{g.title}</a></li>)}
+      </ul>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  h1 { margin-bottom: 1rem; }
+  .lede a { color: var(--teal); font-weight: 800; }
+  .nf { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+  .nf a { display: flex; align-items: center; gap: 0.75rem; min-height: 3.5rem; padding: 0.75rem 1rem; border: 1px solid var(--line); border-radius: var(--radius); font-weight: 800; text-decoration: none; }
+  .nf a:hover { border-color: var(--teal); color: var(--teal); }
+  .nf :global(.icon) { color: var(--teal); }
+  @media (max-width: 760px) { .nf { grid-template-columns: 1fr; } }
+</style>

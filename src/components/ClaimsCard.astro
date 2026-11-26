@@ -1,0 +1,21 @@
+---
+// "Why call Keith" card: the owner line and the claims Keith confirmed (site.claims).
+import Icon from './Icon.astro';
+import { site } from '../data/site.js';
+const { heading = 'Why homeowners call Keith' } = Astro.props;
+const items = [`Owner ${site.owner} does the work`, site.claims.years, site.claims.licensed, site.claims.warranty, site.claims.guarantee, 'Free estimates'];
+---
+<div class="cc">
+  <h3 class="cc__h">{heading}</h3>
+  <ul>{items.map((t) => <li><Icon name="check" size={20} stroke={2.5} />{t}</li>)}</ul>
+  <a class="cc__phone" href={`tel:${site.phoneHref}`}><Icon name="phone" size={20} stroke={2.25} />{site.phone}</a>
+</div>
+
+<style>
+  .cc__h { font-size: 1.3rem; margin-bottom: 1rem; }
+  .cc ul { list-style: none; padding: 0; margin: 0 0 1.25rem; display: grid; gap: 0.5rem; font-weight: 700; }
+  .cc li { display: flex; align-items: center; gap: 0.6rem; }
+  .cc li :global(.icon) { flex: none; color: var(--teal); }
+  .cc__phone { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 1.3rem; font-weight: 800; color: var(--teal); text-decoration: none; }
+  .cc__phone:hover { text-decoration: underline; }
+</style>

@@ -1,0 +1,7 @@
+---
+// /blog/author exists on the live site. Kept as a noindex list that points to About.
+import ArticleHub from '../../components/ArticleHub.astro';
+import { allArticles } from '../../data/content.js';
+const meta = { path: '/blog/author', title: 'Keith Diver | Collingwood Handyman', description: 'Articles by Keith Diver, owner of Collingwood Handyman.' };
+---
+<ArticleHub meta={meta} indexing="noindex,follow" eyebrow="Author" title="Articles by Keith&nbsp;Diver" sub="Owner of Collingwood Handyman, with 30+ years in the trades." list={allArticles} more='<a href="/about">More about Keith</a>' />

@@ -1,0 +1,79 @@
+---
+// Mockup A hero: cream panel, eyebrow with rule, big headline, two actions, photo right.
+// headingIs: 'title' = the big headline is the H1 (service pages).
+//            'eyebrow' = the eyebrow line is the H1 so it carries the search phrase, and the big
+//            headline is styled text (home page, where the slogan has no keyword).
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import { site } from '../data/site.js';
+import ClaimsCard from './ClaimsCard.astro';
+const {
+  eyebrow, title, sub, image, imageAlt = '', crumbs = null, headingIs = 'title',
+  secondary = 'phone', shape = 'landscape', focus = 'center', panel = null,
+} = Astro.props;
+const E = headingIs === 'eyebrow' ? 'h1' : 'p';
+const T = headingIs === 'eyebrow' ? 'p' : 'h1';
+---
+<section class:list={['hero', `hero--${shape}`]}>
+  <div class="wrap hero__grid">
+    <div class="hero__copy">
+      {crumbs && (
+        <nav class="crumbs" aria-label="Breadcrumb">
+          <ol>
+            {crumbs.map((c, i) => (
+              <li>{i < crumbs.length - 1 ? <a href={c.href}>{c.name}</a> : <span aria-current="page">{c.name}</span>}</li>
+            ))}
+          </ol>
+        </nav>
+      )}
+      <E class="eyebrow">{eyebrow}</E>
+      <T class="display hero__title" set:html={title} />
+      <p class="lede">{sub}</p>
+      <div class="hero__ctas">
+        <a class="btn btn--quote" href="#quote">Request a Free Estimate</a>
+        {secondary === 'services'
+          ? <a class="btn btn--outline" href="/services">Explore Services</a>
+          : <a class="btn btn--outline" href={`tel:${site.phoneHref}`}><Icon name="phone" size={18} stroke={2.25} />{site.phone}</a>}
+      </div>
+    </div>
+    {image ? (
+      <figure class="hero__media">
+        <Image src={image} alt={imageAlt} width={shape === 'portrait' ? 900 : 1200} height={1000} fit="cover" position={focus}
+          quality={72} widths={shape === 'portrait' ? [480, 720, 900] : [600, 900, 1200]} sizes="(max-width: 860px) 100vw, 50vw" loading="eager" fetchpriority="high" />
+      </figure>
+    ) : (
+      <aside class="hero__panel">
+        {panel?.icon && <span class="hero__panel-icon"><Icon name={panel.icon} size={44} stroke={1.4} /></span>}
+        <ClaimsCard heading={panel?.heading} />
+      </aside>
+    )}
+  </div>
+</section>
+
+<style>
+  .hero { background: var(--cream); padding-block: 2.5rem 3rem; }
+  .hero__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+  .hero__title { margin: 0 0 1.25rem; max-width: 13ch; }
+  .hero .lede { margin-bottom: 1.75rem; }
+  .hero__ctas { display: flex; flex-wrap: wrap; gap: 0.85rem; }
+  .hero__media { margin: 0; }
+  .hero__media img { width: 100%; aspect-ratio: 6 / 5; object-fit: cover; border-radius: var(--radius-lg) var(--radius-lg) 4.5rem var(--radius-lg); box-shadow: var(--shadow); }
+  .hero--portrait .hero__media img { aspect-ratio: 9 / 10; }
+  .hero__panel { position: relative; padding: 2.25rem 2.25rem 2rem; background: #fff; border: 1px solid var(--line); border-radius: var(--radius-lg) var(--radius-lg) 4.5rem var(--radius-lg); box-shadow: var(--shadow); }
+  .hero__panel-icon { position: absolute; right: 1.75rem; top: 1.75rem; color: var(--teal-bright); opacity: 0.8; }
+  .crumbs ol { list-style: none; display: flex; flex-wrap: wrap; gap: 0.4rem; padding: 0; margin: 0 0 1.5rem; font-size: 0.88rem; }
+  .crumbs li + li::before { content: '/'; margin-right: 0.4rem; color: var(--muted); }
+  .crumbs a { text-decoration: none; }
+  .crumbs a:hover { text-decoration: underline; }
+  .crumbs [aria-current] { color: var(--teal); font-weight: 700; }
+  @media (max-width: 860px) {
+    .hero { padding-block: 1.75rem 0; }
+    .hero__grid { grid-template-columns: 1fr; gap: 1.75rem; }
+    .hero__title { max-width: none; }
+    .hero__ctas .btn--quote { flex: 1 1 100%; }
+    .hero__ctas .btn--outline { display: none; }
+    .hero__media { margin-inline: -0.75rem; }
+    .hero__media img { aspect-ratio: 4 / 3; border-radius: var(--radius) var(--radius) 0 0; box-shadow: none; }
+    .hero__panel { margin-bottom: 2rem; border-radius: var(--radius); padding: 1.5rem; }
+  }
+</style>

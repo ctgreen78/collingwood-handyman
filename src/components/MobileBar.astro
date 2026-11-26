@@ -1,0 +1,30 @@
+---
+// Persistent mobile actions (mockup A): Call with the number, and Request a Quote. Hidden on desktop.
+// Body padding reserves space so content is never covered.
+import { site } from '../data/site.js';
+---
+<nav class="mbar" aria-label="Quick actions">
+  <a class="mbar__call" href={`tel:${site.phoneHref}`}>
+    <span class="mbar__lbl">Call</span>
+    <span class="mbar__num">{site.phone}</span>
+  </a>
+  <a class="mbar__quote" href="#quote">Request a Quote</a>
+</nav>
+
+<style>
+  .mbar { display: none; }
+  @media (max-width: 860px) {
+    .mbar {
+      position: fixed; z-index: 70; left: 0; right: 0; bottom: 0;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem;
+      padding: 0.6rem 0.75rem calc(0.6rem + env(safe-area-inset-bottom, 0px));
+      background: #fff; border-top: 1px solid var(--line-cool);
+      box-shadow: 0 -6px 20px rgba(30, 48, 73, 0.12);
+    }
+    .mbar a { min-height: 3.6rem; display: grid; place-content: center; text-align: center; text-decoration: none; border-radius: 10px; font-weight: 800; line-height: 1.15; }
+    .mbar__call { border: 2px solid var(--navy); color: var(--navy); }
+    .mbar__lbl { font-size: 1.05rem; }
+    .mbar__num { font-size: 0.85rem; font-weight: 700; }
+    .mbar__quote { background: var(--teal); color: #fff; font-size: 1.05rem; }
+  }
+</style>

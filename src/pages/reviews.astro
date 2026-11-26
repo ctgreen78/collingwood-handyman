@@ -1,0 +1,27 @@
+---
+// Reviews: noindex holding page. Only Mike's quote is published until Keith confirms the other
+// reviews on the live site are real (Chris, 2026-11-25). Then add them here and drop the noindex.
+import Layout from '../layouts/Layout.astro';
+import PageHead from '../components/PageHead.astro';
+import QuoteCard from '../components/QuoteCard.astro';
+import ClaimsCard from '../components/ClaimsCard.astro';
+import QuoteBand from '../components/QuoteBand.astro';
+const meta = { path: '/reviews', title: 'Customer Reviews | Collingwood Handyman', description: 'What customers say about Collingwood Handyman and Keith Diver.' };
+const crumbs = [{ name: 'Home', href: '/' }, { name: 'Reviews', href: '/reviews' }];
+---
+<Layout {...meta} indexing="noindex,follow">
+  <PageHead crumbs={crumbs} eyebrow="Customer reviews" title="What customers&nbsp;say." sub="Feedback from people Keith has worked for." />
+  <section class="section">
+    <div class="wrap rv">
+      <div class="rv__q"><QuoteCard link={false} context="Bathroom renovation" /></div>
+      <div class="rv__c"><ClaimsCard heading="Backed by Keith’s promise" /></div>
+    </div>
+  </section>
+  <QuoteBand heading="Let’s talk about your project." sub="Tell Keith what needs doing. You’ll get a free estimate." />
+</Layout>
+<style>
+  .rv { display: grid; grid-template-columns: 1.3fr 1fr; gap: 3rem; align-items: start; }
+  .rv__q { padding: 2rem; background: var(--cream); border-radius: var(--radius-lg); }
+  .rv__c { padding: 2rem; border: 1px solid var(--line); border-radius: var(--radius-lg); }
+  @media (max-width: 860px) { .rv { grid-template-columns: 1fr; gap: 1.5rem; } }
+</style>

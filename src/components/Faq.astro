@@ -1,0 +1,43 @@
+---
+// Accessible FAQ accordions (native details/summary, keyboard friendly).
+import Icon from './Icon.astro';
+const { faqs = [], title, layout = 'stack', more = null, openFirst = true, openAll = false } = Astro.props;
+const hid = 'faq-' + title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+---
+<section class:list={['section faq', `faq--${layout}`]} aria-labelledby={hid}>
+  <div class="wrap faq__in">
+    <div class="faq__head">
+      <h2 id={hid}>{title}</h2>
+    </div>
+    <div>
+      <div class="faq__list">
+        {faqs.map((f, i) => (
+          <details open={openAll || (openFirst && i === 0)}>
+            <summary><span>{f.q}</span><Icon name="chevron-down" size={20} stroke={2.25} /></summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+      {more && <a class="text-link faq__more" href={more.href}>{more.label} <Icon name="arrow-right" size={18} stroke={2.25} /></a>}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq { padding-block: clamp(2.5rem, 5vw, 3.5rem); }
+  .faq--split .faq__in { display: grid; grid-template-columns: 0.9fr 1.35fr; gap: 3rem; align-items: start; }
+  .faq--stack .faq__head { margin-bottom: 1.25rem; }
+  .faq__list { display: grid; gap: 0.75rem; }
+  .faq--split .faq__list { gap: 0; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+  details { border: 1px solid var(--line); border-radius: var(--radius); background: #fff; }
+  .faq--split details { border: 0; border-radius: 0; }
+  .faq--split details + details { border-top: 1px solid var(--line); }
+  .faq--split details[open] { background: var(--cream); }
+  summary { list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 0.9rem 1.1rem; font-weight: 800; cursor: pointer; }
+  summary::-webkit-details-marker { display: none; }
+  summary :global(.icon) { flex: none; transition: transform 0.2s ease; }
+  details[open] summary :global(.icon) { transform: rotate(180deg); }
+  details p { margin: -0.35rem 0 0; padding: 0 1.1rem 1rem; color: var(--muted); font-size: 0.95rem; }
+  .faq__more { margin-top: 1rem; }
+  @media (max-width: 860px) { .faq--split .faq__in { grid-template-columns: 1fr; gap: 1.25rem; } }
+</style>

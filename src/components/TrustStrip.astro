@@ -1,0 +1,20 @@
+---
+// White strip under the hero: owner name and the claims Keith confirmed (site.claims).
+import { site } from '../data/site.js';
+const items = [`${site.owner}, owner`, site.claims.years, site.claims.licensed, 'Free estimates'];
+---
+<section class="trust" aria-label="Why homeowners call Keith">
+  <ul class="wrap trust__in">{items.map((t) => <li>{t}</li>)}</ul>
+</section>
+
+<style>
+  .trust { background: #fff; border-bottom: 1px solid var(--line); }
+  .trust__in { list-style: none; margin-block: 0; padding: 1.4rem 0; display: grid; grid-template-columns: repeat(4, 1fr); }
+  .trust li { text-align: center; font-weight: 800; font-size: 1rem; padding-inline: 1rem; }
+  .trust li + li { border-left: 2px solid var(--teal-bright); }
+  @media (max-width: 860px) {
+    .trust__in { grid-template-columns: 1fr 1fr; row-gap: 0.9rem; padding-block: 1.1rem; }
+    .trust li { font-size: 0.92rem; }
+    .trust li:nth-child(3) { border-left: 0; }
+  }
+</style>

@@ -1,0 +1,38 @@
+---
+// Three numbered steps of the enquiry process.
+const { steps = [], compact = false, vertical = false } = Astro.props;
+---
+<ol class:list={['steps', { 'steps--compact': compact, 'steps--v': vertical }]}>
+  {steps.map((s, i) => (
+    <li>
+      <span class="steps__n" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+      <div>
+        <h3>{s.title}</h3>
+        <p>{s.body}</p>
+      </div>
+    </li>
+  ))}
+</ol>
+
+<style>
+  .steps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); }
+  .steps li { display: flex; gap: 1rem; padding-inline: 1.5rem; }
+  .steps li:first-child { padding-left: 0; }
+  .steps li + li { border-left: 1px solid var(--line); }
+  .steps__n { font-size: 2.4rem; font-weight: 800; line-height: 1; color: var(--teal); letter-spacing: -0.02em; }
+  .steps h3 { font-size: 1.05rem; margin-bottom: 0.3rem; }
+  .steps p { margin: 0; font-size: 0.95rem; color: var(--muted); }
+  .steps--compact .steps__n { font-size: 2rem; }
+  .steps--compact li { padding-inline: 1rem; }
+  .steps--compact li:first-child { padding-left: 0; }
+  .steps--v { grid-template-columns: 1fr; gap: 1.6rem; }
+  .steps--v li { padding: 0; gap: 1.5rem; align-items: flex-start; }
+  .steps--v li + li { border-left: 0; }
+  .steps--v .steps__n { flex: 0 0 3.25rem; padding-right: 1.25rem; border-right: 2px solid var(--navy); font-size: 2rem; color: var(--teal-bright); }
+  .steps--v h3 { font-size: 1.15rem; }
+  @media (max-width: 760px) {
+    .steps { grid-template-columns: 1fr; gap: 1.25rem; }
+    .steps li { padding: 0; }
+    .steps li + li { border-left: 0; border-top: 1px solid var(--line); padding-top: 1.25rem; }
+  }
+</style>
