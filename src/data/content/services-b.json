@@ -200,10 +200,10 @@
   {
     "slug": "general-contractor",
     "name": "General contractor",
-    "seoTitle": "General Contractor in Collingwood | Collingwood Handyman",
-    "seoDescription": "Request a quote for a small or mid-size renovation in Collingwood, Wasaga Beach or Stayner. Describe the rooms, scope and trades involved. Call 705-795-4009.",
+    "seoTitle": "General Contractors in Collingwood | Collingwood Handyman",
+    "seoDescription": "Looking for general contractors in Collingwood? Request a quote for a small or mid-size renovation in Collingwood, Wasaga Beach or Stayner. Call 705-795-4009.",
     "eyebrow": "Collingwood & surrounding communities",
-    "h1": "General contractor requests for Collingwood&nbsp;renovations.",
+    "h1": "General contractors for Collingwood&nbsp;renovations.",
     "sub": "Planning a kitchen, bathroom or basement project with several trades? Describe the renovation and request a quote for managing the project.",
     "image": null,
     "cardsHeading": "One request for the whole project.",
@@ -277,7 +277,7 @@
     ],
     "related": [
       {
-        "name": "Kitchen Remodel",
+        "name": "Kitchen Renovation",
         "href": "/services/kitchen-remodel",
         "icon": "chef-hat"
       },
@@ -574,7 +574,7 @@
     ],
     "related": [
       {
-        "name": "Kitchen Remodel",
+        "name": "Kitchen Renovation",
         "href": "/services/kitchen-remodel",
         "icon": "chef-hat"
       },
@@ -595,15 +595,15 @@
   },
   {
     "slug": "kitchen-remodel",
-    "name": "Kitchen remodel",
-    "seoTitle": "Kitchen Remodel in Collingwood | Collingwood Handyman",
-    "seoDescription": "Request a quote for a kitchen remodel in Collingwood, Wasaga Beach and Stayner. Describe cabinets, counters, backsplash and layout changes. Call 705-795-4009.",
+    "name": "Kitchen renovation",
+    "seoTitle": "Kitchen Renovation in Collingwood | Collingwood Handyman",
+    "seoDescription": "Request a quote for a kitchen renovation in Collingwood, Wasaga Beach and Stayner. Describe cabinets, counters, backsplash or layout. Call 705-795-4009.",
     "eyebrow": "Collingwood & surrounding communities",
-    "h1": "A kitchen remodel planned around how you&nbsp;cook.",
-    "sub": "New cabinets, a tile backsplash or a reworked layout? Describe your kitchen and request a quote. Some of the work may require licensed trades.",
+    "h1": "Kitchen renovations planned around how you&nbsp;cook.",
+    "sub": "New cabinets, a tile backsplash or a reworked layout? Describe your kitchen renovation and request a quote. Some of the work may require licensed trades.",
     "image": null,
     "cardsHeading": "Make your kitchen work for you.",
-    "cardsIntro": "Request a kitchen remodel for homes and cottages across Collingwood, Wasaga Beach, Stayner and nearby towns, from a cabinet refresh to a full renovation.",
+    "cardsIntro": "Request a kitchen renovation for homes and cottages across Collingwood, Wasaga Beach, Stayner and nearby towns, from a cabinet refresh to a full renovation.",
     "cards": [
       {
         "icon": "chef-hat",
@@ -642,7 +642,7 @@
         "body": "Discuss the layout, materials and any licensed trade requirements."
       }
     ],
-    "detailHeading": "Planning a kitchen remodel that fits your home",
+    "detailHeading": "Planning a kitchen renovation that fits your home",
     "detailBody": [
       "Start with how you use the kitchen. Count the steps between the sink, stove and fridge, and note where you run out of counter space and where things pile up. Those notes shape a better layout than any catalogue photo.",
       "Keeping the sink, range and appliances where they are keeps the work simpler and the budget easier to manage. Moving them means new plumbing, gas or electrical runs, which may require licensed trades. The service provider can walk you through what each change involves.",
@@ -689,7 +689,7 @@
       }
     ],
     "bandHeading": "Requests welcome from Collingwood, Wasaga Beach, Stayner and nearby communities.",
-    "formHeading": "Request a quote for your kitchen remodel.",
+    "formHeading": "Request a quote for your kitchen renovation.",
     "formSub": "Describe your kitchen and the changes you want, and request a quote."
   },
   {

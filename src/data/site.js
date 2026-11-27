@@ -61,7 +61,7 @@ export const serviceGroups = [
     blurb: 'Upgrades and refreshes to create a clean, functional space.',
     services: [
       ['Bathroom renovation', '/services/bathroom-renovation'],
-      ['Kitchen remodel', '/services/kitchen-remodel'],
+      ['Kitchen renovation', '/services/kitchen-remodel'],
       ['Basement renovation', '/services/basement-renovation'],
       ['Renovations', '/services/renovations'],
       ['Tiling', '/services/tiling'],
