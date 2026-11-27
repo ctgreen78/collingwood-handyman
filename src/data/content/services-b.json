@@ -988,5 +988,104 @@
     "bandHeading": "Requests welcome from Collingwood, Wasaga Beach, Stayner and nearby communities.",
     "formHeading": "Request a quote for property maintenance.",
     "formSub": "Describe your property and the upkeep you need, and request a quote."
+  },
+  {
+    "slug": "snow-removal",
+    "name": "Snow removal",
+    "seoTitle": "Snow Removal in Collingwood | Collingwood Handyman",
+    "seoDescription": "Request a quote for snow removal in Collingwood, Wasaga Beach and The Blue Mountains. Describe driveways, walkways, steps and salting needs. Call 705-795-4009.",
+    "eyebrow": "Collingwood & surrounding communities",
+    "h1": "Snow removal for driveways, walkways and&nbsp;steps.",
+    "sub": "Need your driveway and paths cleared this winter? Describe the areas, how you want ice handled and whether you want each storm or a full season, then request a quote.",
+    "image": null,
+    "cardsHeading": "Pick the areas to clear.",
+    "cardsIntro": "Request snow removal for homes, cottages and rentals across Collingwood, Wasaga Beach, The Blue Mountains and nearby towns, from one driveway to several properties.",
+    "cards": [
+      {
+        "icon": "route",
+        "title": "Driveways & parking pads",
+        "body": "Clearing driveways, parking pads and the area in front of the garage door, including the bank left at the end of the driveway by the road plow."
+      },
+      {
+        "icon": "footprints",
+        "title": "Walkways, steps & entrances",
+        "body": "Front walks, steps, landings, side paths and the route to the mailbox or garbage area, cleared so people can get in and out safely."
+      },
+      {
+        "icon": "snowflake",
+        "title": "Salting & ice control",
+        "body": "Salt, sand or a pet-friendly melt on walkways and steps after clearing. Say which product you prefer and where melt should not go."
+      },
+      {
+        "icon": "calendar-clock",
+        "title": "Each storm or a full season",
+        "body": "Ask for a single clearing after a big storm, or a seasonal agreement that covers every snowfall above an agreed depth."
+      }
+    ],
+    "scopeNote": "The service provider can confirm the scope, equipment and coverage for your address before anything is booked.",
+    "processHeading": "From your request to a clear driveway.",
+    "steps": [
+      {
+        "title": "Describe the job",
+        "body": "Share the address, the areas to clear, rough sizes and photos, plus any steps, slopes or tight spots."
+      },
+      {
+        "title": "A service provider reviews it",
+        "body": "The service provider reviews the areas, confirms coverage for your address and contacts you."
+      },
+      {
+        "title": "Talk through scope and next steps",
+        "body": "Agree on what gets cleared, the snowfall depth that triggers a visit, salting and how access works."
+      }
+    ],
+    "detailHeading": "Snow removal through a Georgian Bay winter",
+    "detailBody": [
+      "Collingwood and the towns along Georgian Bay can get heavy snow, including lake-effect bursts that drop a lot of snow in a short time. Freeze-thaw days then turn slush into ice on driveways, steps and walkways. Planning before the first snowfall makes the winter easier.",
+      "When you compare quotes, ask what triggers a visit, such as a set depth of snow, which areas are included, whether salting is part of the service or extra, and how the plow bank at the end of the driveway is handled. Ask the provider to confirm their liability insurance, and agree in writing on what happens to lawn edges, gardens and stone borders.",
+      "Mark the edges of the driveway, walkways and gardens with stakes before the ground freezes so they can be found under the snow. Do not push or blow snow onto the road or sidewalk. Confirm local rules with the Town of Collingwood or your municipality. For rentals, the lease sets out whether the landlord or the tenant clears snow."
+    ],
+    "faqsHeading": "Before you send a request",
+    "faqs": [
+      {
+        "q": "When should I arrange snow removal?",
+        "a": "Before the first snowfall. Send your request in the fall so the service provider can review the property, agree on the scope and plan around your driveway and walkways."
+      },
+      {
+        "q": "Is salting included?",
+        "a": "It depends on the agreement. Say whether you want salt, sand or a pet-friendly melt on walkways and steps, and ask whether it is included or quoted separately."
+      },
+      {
+        "q": "Can I get a single visit instead of a season?",
+        "a": "Yes. Say whether you want one clearing after a storm or regular service for every snowfall above an agreed depth. Both can be requested."
+      },
+      {
+        "q": "Can a cottage or rental be cleared while I am away?",
+        "a": "Yes. Give the address, how to reach the driveway and any gates, and a phone number where you can be reached. Landlords can list several units in one request."
+      },
+      {
+        "q": "Is roof snow removal included?",
+        "a": "Not as standard. Work on a roof is at height and carries a fall risk. Ask the provider directly whether they clear roof snow and how they do it safely, or use a roofing professional."
+      }
+    ],
+    "related": [
+      {
+        "name": "Home Maintenance",
+        "href": "/services/home-maintenance",
+        "icon": "house"
+      },
+      {
+        "name": "Property Maintenance",
+        "href": "/services/property-maintenance",
+        "icon": "key-round"
+      },
+      {
+        "name": "Cottage Maintenance",
+        "href": "/services/cottage-maintenance",
+        "icon": "house"
+      }
+    ],
+    "bandHeading": "Requests welcome from Collingwood, Wasaga Beach, The Blue Mountains and nearby communities.",
+    "formHeading": "Request a quote for snow removal.",
+    "formSub": "Describe the areas to clear and request a quote."
   }
 ]

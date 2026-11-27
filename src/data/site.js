@@ -104,6 +104,7 @@ export const serviceGroups = [
       ['Home maintenance', '/services/home-maintenance'],
       ['Property maintenance', '/services/property-maintenance'],
       ['Property manager maintenance', '/services/property-manager-maintenance'],
+      ['Snow removal', '/services/snow-removal'],
       ['Tenant placement prep', '/services/tenant-placement'],
     ],
   },
