@@ -16,9 +16,9 @@ export const site = {
   region: 'Collingwood · Southern Georgian Bay',
 
   // Preview mode: every page carries noindex. Set to false only at launch on collingwoodhandyman.ca.
-  preview: true,
+  preview: false,
   // Live forms: false = the form shows a "Preview only" notice and sends nothing.
-  formsLive: false,
+  formsLive: true,
   turnstileSiteKey: null,
   showImageCaptions: false,
   formDisclosure: 'Your details will be shared with a local service provider to respond to your enquiry.',

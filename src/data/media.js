@@ -3,6 +3,7 @@
 // so no page shows the picture Wasaga shows in that place (Chris 2026-11-26). Where no related picture fits,
 // the image is mirrored instead (carpentry, ceiling fan, dryer vent, deck, fence, pressure washing,
 // cottage closing, general contractor, property manager maintenance).
+// services/drywall-repair.jpg: new AI image made for Collingwood 2026-11-26 (prompt in IMAGE-PROMPTS.txt).
 // home-hero.jpg: AI cottage scene (was Wasaga's cottage-open image).
 // services/cottage-maintenance.jpg: Unsplash photo (Clay Banks), Wasaga's home hero.
 // Rank-and-rent rule: images are illustrative, never presented as a customer project
@@ -23,7 +24,7 @@ export const homeHero = {
 
 const alts = {
   'home-repair': 'Fresh drywall patch on a grey living room wall, with a mud pan and taping knife on a drop cloth',
-  'drywall-repair': 'Tool bag, cordless drill and screws by a doorway with a patched wall',
+  'drywall-repair': 'Square drywall patch with tape and fresh joint compound on a cottage bedroom wall, with a compound bucket and drywall knife on a step stool',
   carpentry: 'Pine mudroom bench with a coat hook shelf above and rubber boots underneath',
   'tv-mounting': 'Finished basement family room with a sectional sofa, wall mounted TV and pot lights',
   'ceiling-fan-installation': 'White ceiling fan with wood tone blades and a light kit in a cottage bedroom',
