@@ -7,7 +7,7 @@ import { site, nav, serviceGroups, areas } from '../data/site.js';
 <header class="hdr">
   <div class="wrap hdr__in">
     <a class="hdr__logo" href="/" aria-label={`${site.name} home`}>
-      <Image src={logo} alt="" width={420} widths={[210, 420]} sizes="210px" loading="eager" />
+      <Image src={logo} alt="" width={420} widths={[180, 210, 360, 420]} sizes="(max-width: 1140px) 180px, 210px" loading="eager" />
     </a>
 
     <nav class="nav" aria-label="Main">

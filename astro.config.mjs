@@ -6,7 +6,8 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://collingwoodhandyman.ca',
   trailingSlash: 'never',
-  build: { format: 'file' },
+  // inlineStylesheets: the CSS (about 6 KB compressed) goes inside each page, so phones skip a render-blocking request.
+  build: { format: 'file', inlineStylesheets: 'always' },
 
   // Keep noindex pages (author list, reviews holding page, thanks, 404) out of the sitemap.
   integrations: [sitemap({ filter: (p) => !/\/(blog\/author|404|thanks|reviews)(\/|$)/.test(p) })],
