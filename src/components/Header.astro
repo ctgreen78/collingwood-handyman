@@ -44,7 +44,9 @@ import { site, nav, serviceGroups, areas } from '../data/site.js';
     </div>
 
     <button class="burger" type="button" aria-expanded="false" aria-controls="mnav">
-      <span class="sr-only">Menu</span><Icon name="menu" size={30} stroke={2.25} />
+      <span class="sr-only burger__label">Open menu</span>
+      <span class="burger__open"><Icon name="menu" size={30} stroke={2.25} /></span>
+      <span class="burger__close"><Icon name="x" size={30} stroke={2.25} /></span>
     </button>
   </div>
 
@@ -78,14 +80,28 @@ import { site, nav, serviceGroups, areas } from '../data/site.js';
     if (e.key !== 'Escape') return;
     dds.forEach((d) => { if (d.open) { d.open = false; d.querySelector('summary')?.focus(); } });
   });
-  // Mobile menu
-  const b = document.querySelector('.burger');
+  // Mobile menu: toggle, close on any link tap (same-page anchors stay visible), close on Escape.
+  const b = document.querySelector<HTMLButtonElement>('.burger');
   const m = document.getElementById('mnav');
-  b?.addEventListener('click', () => {
-    const open = b.getAttribute('aria-expanded') === 'true';
-    b.setAttribute('aria-expanded', String(!open));
-    if (m) m.hidden = open;
+  const label = b?.querySelector('.burger__label');
+  const setMenu = (open: boolean) => {
+    if (!b || !m) return;
+    b.setAttribute('aria-expanded', String(open));
+    m.hidden = !open;
+    if (label) label.textContent = open ? 'Close menu' : 'Open menu';
+  };
+  b?.addEventListener('click', () => setMenu(b.getAttribute('aria-expanded') !== 'true'));
+  document.addEventListener('click', (e) => {
+    if (m && !m.hidden && (e.target as Element).closest?.('a[href]')) setMenu(false);
   });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && m && !m.hidden) { setMenu(false); b?.focus(); }
+  });
+  window.matchMedia('(min-width: 1141px)').addEventListener('change', (q) => { if (q.matches) setMenu(false); });
+  // Pages without a quote form (404, privacy, tenants, thanks): send "Request a Quote" to the contact form.
+  if (!document.getElementById('quote')) {
+    document.querySelectorAll<HTMLAnchorElement>('a[href="#quote"]').forEach((a) => { a.href = '/contact#quote'; });
+  }
 </script>
 
 <style>
@@ -116,6 +132,9 @@ import { site, nav, serviceGroups, areas } from '../data/site.js';
   .hdr__phone:hover { color: var(--teal); }
   .hdr__quote { min-height: 2.9rem; padding-inline: 1.15rem; font-size: 0.95rem; }
   .burger { display: none; margin-left: auto; width: 3rem; height: 3rem; border: 0; background: none; color: var(--navy); cursor: pointer; }
+  .burger__open, .burger__close { display: grid; place-items: center; }
+  .burger__close, .burger[aria-expanded='true'] .burger__open { display: none; }
+  .burger[aria-expanded='true'] .burger__close { display: grid; }
   .mnav { border-top: 1px solid var(--line-cool); padding-block: 1rem 1.5rem; max-height: 75vh; overflow-y: auto; }
   .mnav[hidden] { display: none; }
   .mnav__h { margin: 0.75rem 0 0.25rem; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); }
