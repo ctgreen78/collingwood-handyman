@@ -35,6 +35,7 @@ export const nav = [
   { label: 'Service Areas', href: '/service-areas', menu: 'areas' },
   { label: 'How it works', href: '/about' },
   { label: 'FAQs', href: '/faqs' },
+  { label: 'Blog', href: '/blog' },
 ];
 
 // Service groups. Every link is a URL on the live site (sitemap 2026-11-25).
