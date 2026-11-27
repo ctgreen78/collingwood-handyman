@@ -113,6 +113,7 @@ export const serviceGroups = [
 // but have no page yet (decide in the full rollout).
 export const areas = [
   ['Collingwood', '/service-areas/collingwood'],
+  ['The Blue Mountains', '/service-areas/the-blue-mountains'],
   ['Wasaga Beach', '/service-areas/wasaga-beach'],
   ['Stayner', '/service-areas/stayner'],
   ['Barrie', '/service-areas/barrie'],

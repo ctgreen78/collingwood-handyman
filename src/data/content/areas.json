@@ -49,10 +49,68 @@
       }
     ],
     "nearby": [
+      "the-blue-mountains",
       "wasaga-beach",
       "stayner"
     ],
     "formHeading": "Request a quote for your Collingwood project.",
+    "formSub": "Describe the job. A service provider reviews your request and contacts you."
+  },
+  {
+    "slug": "the-blue-mountains",
+    "name": "The Blue Mountains",
+    "seoTitle": "Handyman in The Blue Mountains, ON | Collingwood Handyman",
+    "seoDescription": "Request a quote for repairs, chalet and cottage upkeep or painting in Thornbury, Craigleith and The Blue Mountains. Call 705-795-4009.",
+    "eyebrow": "Thornbury, Craigleith and Clarksburg",
+    "h1": "Handyman services in The Blue&nbsp;Mountains.",
+    "sub": "Request repairs, painting or seasonal upkeep for a home, chalet or cottage in The Blue Mountains. A service provider reviews your details and confirms coverage.",
+    "intro": [
+      "The Town of The Blue Mountains sits just west of Collingwood along Georgian Bay, in Grey County. It takes in Thornbury, Clarksburg, Craigleith and the area around the ski hills. Many properties are chalets, cottages and second homes, so owners are often away when something needs fixing.",
+      "Common requests include painting, deck and railing repairs, caulking and seasonal checks before and after ski season or summer. Send the list, photos and your address, and say how access works if you are not on site. A service provider reviews the request and confirms the scope before any work is booked. For permits, confirm with the Town of The Blue Mountains."
+    ],
+    "localHeading": "Common jobs around Blue Mountains homes and chalets",
+    "local": [
+      {
+        "title": "Chalets and second homes",
+        "body": "Owners who are away can send one request with photos, a lockbox or key arrangement and a contact on site. List every job so the service provider can review the full scope."
+      },
+      {
+        "title": "Painting between seasons",
+        "body": "Interior repainting is often planned for the quieter weeks between ski season and summer. Describe the rooms, ceilings and trim, and add photos of any patching needed."
+      },
+      {
+        "title": "Decks, stairs and railings",
+        "body": "Snow load and freeze-thaw cycles loosen boards, posts and railings. Describe what moves or looks soft and send photos. Structural problems may need a contractor or engineer."
+      }
+    ],
+    "popular": [
+      "painting",
+      "cottage-maintenance",
+      "cottage-open",
+      "cottage-closing",
+      "deck-repair",
+      "property-maintenance"
+    ],
+    "faqs": [
+      {
+        "q": "Are Thornbury, Craigleith and Clarksburg included?",
+        "a": "Yes. Requests can come from anywhere in the Town of The Blue Mountains, including Thornbury, Clarksburg, Craigleith and the area around the ski hills. A service provider confirms coverage for your address."
+      },
+      {
+        "q": "Can I send a request if I am not at the chalet or cottage?",
+        "a": "Yes. Add photos, explain how the provider can get in, such as a lockbox or a neighbour with a key, and give a phone number where you can be reached."
+      },
+      {
+        "q": "Can requests cover seasonal opening and closing?",
+        "a": "Yes. List the checks you want, such as water, heat, windows, decks and eavestroughs, and the dates you need them done. The service provider reviews the list and confirms the scope with you."
+      }
+    ],
+    "nearby": [
+      "collingwood",
+      "wasaga-beach",
+      "stayner"
+    ],
+    "formHeading": "Request a quote for your Blue Mountains project.",
     "formSub": "Describe the job. A service provider reviews your request and contacts you."
   },
   {
