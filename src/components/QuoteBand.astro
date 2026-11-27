@@ -107,6 +107,9 @@ const { heading, sub, service = null, detailsLabel = 'What needs doing?' } = Ast
         const r = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
         const data = await r.json().catch(() => ({}));
         if (r.ok && data.ok) {
+          // GA4 conversion (no personal details). gtag only exists on the live domain.
+          const service = (form.querySelector('[name="service"]') as HTMLSelectElement | null)?.value || '';
+          (window as any).gtag?.('event', 'generate_lead', { form_name: 'quote', service, page_path: location.pathname });
           form.reset();
           say('Thanks. Your request was sent. A local service provider will review it and contact you.', 'ok');
         } else if (data.error === 'invalid') {

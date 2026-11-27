@@ -1,0 +1,23 @@
+---
+// Google Analytics 4 (Chris 2026-11-26). Loads only on the real domain, never on the
+// pages.dev test link or local dev, and never while site.preview is on.
+// The privacy page describes it. The quote form sends a generate_lead event (no personal details).
+import { site } from '../data/site.js';
+const id = site.ga4;
+const host = new URL(site.url).hostname;
+const on = Boolean(id) && !site.preview;
+---
+{on && (
+  <script is:inline define:vars={{ id, host }}>
+    if (location.hostname === host || location.hostname === 'www.' + host) {
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { window.dataLayer.push(arguments); };
+      window.gtag('js', new Date());
+      window.gtag('config', id);
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + id;
+      document.head.appendChild(s);
+    }
+  </script>
+)}

@@ -1,7 +1,8 @@
 ---
-// DRAFT privacy information (2026-11-26), modelled on the Wasaga text Chris approved 2026-11-24:
+// Privacy information, modelled on the Wasaga text Chris approved 2026-11-24:
 // operator Certtech Web Solutions, leads passed to a local service provider, details kept 12 months.
-// Chris to approve before launch. Update the provider line if a named renter takes over.
+// Updated 2026-11-26 at Chris's request: Google Analytics, hosting and email delivery added.
+// Update the provider line if a named renter takes over. Keep "Last updated" current.
 import Layout from '../layouts/Layout.astro';
 import { site } from '../data/site.js';
 import { webPage, breadcrumbs, business } from '../lib/schema.js';
@@ -14,6 +15,7 @@ const crumbs = [{ name: 'Home', href: '/' }, { name: 'Privacy', href: '/privacy-
     <div class="wrap pp">
       <p class="eyebrow">Privacy</p>
       <h1>Privacy information for enquiries.</h1>
+      <p class="pp__date">Last updated: November 26, 2026</p>
     </div>
   </section>
   <section class="section">
@@ -24,6 +26,11 @@ const crumbs = [{ name: 'Home', href: '/' }, { name: 'Privacy', href: '/privacy-
       <p>When you send a request or call, the details you choose to share are collected: your name, phone number, town or postcode, email address if you add one, the service you select and your project details. The page you sent the request from is recorded so the request has context.</p>
       <h2>How your details are used and shared</h2>
       <p>Your details are received by Certtech Web Solutions and shared with a local service provider so they can respond to your enquiry, discuss the work and prepare a quote. Your details are not sold.</p>
+      <h2>Website analytics</h2>
+      <p>This website uses Google Analytics to understand how visitors use it, for example which pages are viewed, how visitors arrived, the type of device and browser, and an approximate location based on the internet connection. Google Analytics uses cookies to do this. It does not receive your name, phone number, email address or project details. When a request is sent, only the fact that a request was sent, the service selected and the page are counted.</p>
+      <p>The information is processed by Google and may be stored outside Canada. You can block analytics cookies in your browser settings or install the <a href="https://tools.google.com/dlpage/gaoptout" rel="noopener">Google Analytics opt-out browser add-on</a>. Read how Google uses this information at <a href="https://policies.google.com/technologies/partner-sites" rel="noopener">policies.google.com</a>.</p>
+      <h2>Services that help run this website</h2>
+      <p>The website is hosted by Cloudflare, which processes basic technical information such as your IP address to deliver and protect the site. Requests sent through the form are delivered by email through Emailit. These providers handle information only to provide their service.</p>
       <h2>How long details are kept</h2>
       <p>Enquiry details are kept for 12 months and then deleted, unless a longer period is required for an active job or by law.</p>
       <h2>Your choices</h2>
@@ -37,4 +44,5 @@ const crumbs = [{ name: 'Home', href: '/' }, { name: 'Privacy', href: '/privacy-
   .pp h2 { font-size: 1.35rem; margin: 2rem 0 0.6rem; }
   .pp h2:first-child { margin-top: 0; }
   .pp a { color: var(--teal); font-weight: 700; }
+  .pp__date { margin-top: 0.75rem; color: var(--muted, #4a5d64); font-size: 0.95rem; }
 </style>
